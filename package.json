@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "dr-react",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "dr-js",
   "license": "MIT",
   "description": "A collection of strange functions, with React",
@@ -20,8 +20,8 @@
   },
   "main": "library/index.js",
   "scripts": {
-    "build-library-babel": "cross-env NODE_ENV=production BABEL_ENV=library babel ./source --out-dir ./output-gitignore/library",
-    "build-library-babel-dev": "cross-env NODE_ENV=development BABEL_ENV=library-dev babel ./source --out-dir ./output-gitignore/library --watch",
+    "build-example": "cross-env NODE_ENV=production webpack --config .webpackrc.example.js",
+    "build-example-dev": "cross-env NODE_ENV=development webpack --config .webpackrc.example.js --watch",
     "prepack": "echo \"Error: should pack with repack-*\" && exit 1"
   },
   "engines": {
@@ -30,15 +30,15 @@
   },
   "peerDependencies": {
     "dr-js": "*",
+    "prop-types": "*",
     "react": "*",
-    "react-dom": "*",
-    "prop-types": "*"
+    "react-dom": "*"
   },
   "devDependencies": {
-    "dr-js": "^0.11.1-dev.1",
-    "dev-dep-babel-react": "^0.0.13",
+    "dev-dep-web-react-postcss": "^0.0.14-dev.2",
+    "dr-js": "^0.11.1-dev.2",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "prop-types": "^15.6.0"
+    "react-dom": "^16.2.0"
   }
 }

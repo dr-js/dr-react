@@ -2,7 +2,7 @@
   "env": {
     "// __DEV__ = false, use require(), remove unused code & comment": "",
     "library": {
-      "presets": [ [ "env", { "targets": { "node": 8 } } ] ],
+      "presets": [ [ "env", { "targets": { "node": 8 } } ], [ "react" ] ],
       "plugins": [
         [ "transform-class-properties" ],
         [ "transform-object-rest-spread", { "useBuiltIns": true } ],
@@ -17,7 +17,7 @@
     },
     "// __DEV__ = true, use require()": "",
     "library-dev": {
-      "presets": [ [ "env", { "targets": { "node": 8 } } ] ],
+      "presets": [ [ "env", { "targets": { "node": 8 } } ], [ "react" ] ],
       "plugins": [
         [ "transform-class-properties" ],
         [ "transform-object-rest-spread", { "useBuiltIns": true } ],
