@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+  <title>dr-react/example</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    button { font: inherit; }
+
+    textarea { outline: none; resize: none; background: transparent; }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+
+    ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.3); }
+  </style>
+  <link rel="stylesheet" href="source-gitignore/index.css">
+</head>
+<body>
+<div id="root" style="width: 100vw; height: 100vh; overflow: hidden;"></div>
+<script src="source-gitignore/index.js"></script>
+<script>
+  const { DR_REACT: { initReactRender, initialState: defaultInitialState } } = window
+
+  const initialState = {
+    ...defaultInitialState,
+    widgetList: [ {
+      id: 'W-rect',
+      shape: 'rect',
+      size: { x: 279, y: 146 },
+      rotate: 1.4144,
+      zIndex: 0,
+      center: { x: 924, y: 290 },
+      bindData: null
+    }, {
+      id: 'W-line',
+      shape: 'line',
+      size: { x: 14.323960031402606, y: 315.734887252025 },
+      rotate: 1.991546747236618,
+      zIndex: 1,
+      center: { x: 1140.2077052777, y: 343.10980699105403 },
+      bindData: { 'W-rect': { end: { shiftX: 0, shiftY: -0.5 } } }
+    }, {
+      id: 'W-elbow',
+      shape: 'elbow',
+      size: { x: 22, y: 226 },
+      rotate: 135.4284,
+      zIndex: 1,
+      width: 9,
+      anchors: [ { x: 0, y: 226 }, { x: 0, y: 110 }, { x: 22, y: 110 }, { x: 22, y: 0 } ],
+      center: { x: 804, y: 404 },
+      bindData: { 'W-rect': { 'anchor head': { shiftX: 0, shiftY: 0.5 } } }
+    } ]
+  }
+
+  window.D = initReactRender({
+    rootElement: document.querySelector('#root'),
+    initialState
+  })
+</script>
+</body>
+</html>
