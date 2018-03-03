@@ -1,5 +1,5 @@
 import { objectSet } from 'dr-js/module/common/immutable/ImmutableOperation'
-import { fromPoint as widgetFromPoint, fromLine as widgetFromLine } from 'dr-js/module/common/geometry/D2/widget'
+import { fromPoint as widgetFromPoint, fromLine as widgetFromLine } from 'dr-js/module/common/geometry/D2/Widget'
 
 import { WIDGET_SHAPE_TYPE } from 'source/widget/type/shape'
 import { toEditorSpacePoint } from 'source/widget/math/base'

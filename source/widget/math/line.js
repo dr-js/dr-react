@@ -1,5 +1,5 @@
-import { fromWidget as lineFromWidget } from 'dr-js/module/common/geometry/D2/line'
-import { fromLine as widgetFromLine } from 'dr-js/module/common/geometry/D2/widget'
+import { fromWidget as lineFromWidget } from 'dr-js/module/common/geometry/D2/Line'
+import { fromLine as widgetFromLine } from 'dr-js/module/common/geometry/D2/Widget'
 
 import { HANDLE_TYPE } from '../type/handle'
 
