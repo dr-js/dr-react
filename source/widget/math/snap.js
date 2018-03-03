@@ -1,5 +1,5 @@
 import { ListMap } from 'dr-js/module/common/data/ListMap'
-import { fromWidget } from 'dr-js/module/common/geometry/D2/boundingRect'
+import { fromWidget } from 'dr-js/module/common/geometry/D2/BoundingRect'
 
 import { SNAP_TYPE, SNAP_TO_SET_MAP } from '../type/snap'
 

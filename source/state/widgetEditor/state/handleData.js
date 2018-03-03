@@ -1,6 +1,6 @@
 import { objectMerge, objectSet } from 'dr-js/module/common/immutable/ImmutableOperation'
-import { getRotateDelta, sub, scale } from 'dr-js/module/common/geometry/D2/vector'
-import { getCenter } from 'dr-js/module/common/geometry/D2/boundingRect'
+import { getRotateDelta, sub, scale } from 'dr-js/module/common/geometry/D2/Vector'
+import { getCenter } from 'dr-js/module/common/geometry/D2/BoundingRect'
 
 import { HANDLE_TYPE } from 'source/widget/type/handle'
 import { toClientSpacePoint } from 'source/widget/math/base'

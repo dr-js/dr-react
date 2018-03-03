@@ -117,6 +117,8 @@ class WidgetEditor extends PureComponent {
     const hoverWidget = hasIndicator && this.getHoverWidgetCached(widgetList, hoverWidgetId)
     const singleSelectPreviewWidget = hasIndicator && this.getSingleSelectPreviewWidgetCached(widgetList, selectIdList, previewWidgetDataMap)
 
+    __DEV__ && console.log(`[RENDER] WidgetEditor`)
+
     return <RulerLayer {...{ zoom, valueX: centerOffset.x, valueY: centerOffset.y, onClick: this.doResetCenterOffset, className: CSS_EVENT_DEFAULT_FIX }}>
       <ScrollLayer {...{ setRef: this.setEditorLayerElement, zoom, viewport, centerOffset, allowScroll, onChange: this.mergeExternalState, className: CSS_EVENT_DEFAULT_FIX }}>
         <WidgetLayer {...{ zoom, isLock, widgetList, previewWidgetDataMap, funcPack: this.widgetLayerFuncPack }} />

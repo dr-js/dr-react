@@ -1,5 +1,5 @@
 import { objectMerge, objectSet, arrayPush, arrayDelete, arrayMatchPush, arrayMatchDelete } from 'dr-js/module/common/immutable/ImmutableOperation'
-import { fromPoint, fromWidgetList, isIntersect } from 'dr-js/module/common/geometry/D2/boundingRect'
+import { fromPoint, fromWidgetList, isIntersect } from 'dr-js/module/common/geometry/D2/BoundingRect'
 
 import { immutableTransformCache } from 'source/__dev__'
 import { SELECT_MODE_TYPE } from 'source/state/event'

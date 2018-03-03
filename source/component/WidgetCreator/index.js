@@ -75,6 +75,8 @@ class WidgetCreator extends PureComponent {
       previewData: { previewWidget, isValidPlace }
     } = this.state
 
+    __DEV__ && console.log(`[RENDER] WidgetCreator`)
+
     return <div ref={this.setCreatorLayerElement} className={CSS_WIDGET_CREATOR}>
       <SampleLayer {...{ isLock, selectSampleShape, funcPack: this.sampleLayerFuncPack }} />
       <IndicatorLayer {...{ zoom, centerOffset, viewport, previewWidget, isValidPlace, isActive: Boolean(!isLock && (previewWidget || selectSampleShape)), setRef: this.setIndicatorLayerElement }} />

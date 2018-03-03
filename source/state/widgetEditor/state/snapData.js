@@ -1,6 +1,6 @@
 import { objectSet } from 'dr-js/module/common/immutable/ImmutableOperation'
-import { fromWidget } from 'dr-js/module/common/geometry/D2/boundingRect'
-import { fromBoundingRect } from 'dr-js/module/common/geometry/D2/widget'
+import { fromWidget } from 'dr-js/module/common/geometry/D2/BoundingRect'
+import { fromBoundingRect } from 'dr-js/module/common/geometry/D2/Widget'
 
 import { immutableTransformCache } from 'source/__dev__'
 import { SNAP_ENABLED_HANDEL_TYPE_SET } from 'source/widget/type/snap'

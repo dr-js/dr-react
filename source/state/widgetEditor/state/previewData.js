@@ -1,7 +1,7 @@
 import { objectSet } from 'dr-js/module/common/immutable/ImmutableOperation'
-import { add } from 'dr-js/module/common/geometry/D2/vector'
-import { fromWidget } from 'dr-js/module/common/geometry/D2/boundingRect'
-import { fromBoundingRect } from 'dr-js/module/common/geometry/D2/widget'
+import { add } from 'dr-js/module/common/geometry/D2/Vector'
+import { fromWidget } from 'dr-js/module/common/geometry/D2/BoundingRect'
+import { fromBoundingRect } from 'dr-js/module/common/geometry/D2/Widget'
 
 import { WIDGET_SHAPE_TYPE } from 'source/widget/type/shape'
 import { calcWidgetResizeHandleDelta, calcWidgetBindShift } from 'source/widget/math/calc'
