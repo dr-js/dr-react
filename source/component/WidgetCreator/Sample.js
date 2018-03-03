@@ -1,15 +1,36 @@
 import React, { createElement } from 'react'
+import styled from 'styled-components'
 
+import { color } from 'source/style/color'
 import { WidgetRect, WidgetLine, WidgetElbow } from 'source/component/Widget'
 import { WIDGET_SHAPE_TYPE } from 'source/widget/type/shape'
 
-import LocalClassName from './sample.pcss'
-const CSS_SAMPLE = LocalClassName[ 'sample' ]
+const SampleDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  &.sample-button { pointer-events: auto; }
 
-const SampleWidgetLineLink = () => <div className={CSS_SAMPLE}><span>widget-line-link</span></div>
-const SampleWidgetRectCanvas = () => <div className={CSS_SAMPLE}><span>widget-rect-canvas</span></div>
-const SampleWidgetRectText = () => <div className={CSS_SAMPLE}><span>widget-rect-text</span></div>
-const SampleWidgetElbowLink = () => <div className={CSS_SAMPLE}><span>widget-elbow-link</span></div>
+  & > i {
+    font-size: 26px;
+    color: ${color.text};
+  }
+
+  & > span {
+    margin-top: 4px;
+    font-size: 12px;
+    color: rgba(39, 54, 77, 0.60);
+  }
+`
+
+const SampleWidgetLineLink = () => <SampleDiv><span>widget-line-link</span></SampleDiv>
+const SampleWidgetRectCanvas = () => <SampleDiv><span>widget-rect-canvas</span></SampleDiv>
+const SampleWidgetRectText = () => <SampleDiv><span>widget-rect-text</span></SampleDiv>
+const SampleWidgetElbowLink = () => <SampleDiv><span>widget-elbow-link</span></SampleDiv>
 
 const SAMPLE_MAP = {
   [ WIDGET_SHAPE_TYPE.LINE_LINK ]: SampleWidgetLineLink,

@@ -12,13 +12,13 @@ module.exports = {
         [ 'minify-replace', getReplaceDEV(true) ]
       ]
     },
-    library: { // __DEV__ = false, use require(), simplify
-      presets: [ [ '@babel/env', { targets: { node: 8 } } ], [ '@babel/react' ] ],
+    module: { // __DEV__ = false, use import from, remove unused code & comment
+      presets: [ [ '@babel/env', { targets: { node: 8 }, modules: false } ], [ '@babel/react' ] ],
       plugins: [
-        [ 'babel-plugin-styled-components' ],
+        [ 'babel-plugin-styled-components', { displayName: false, minify: true, transpileTemplateLiterals: true } ],
         [ '@babel/proposal-class-properties' ],
         [ '@babel/proposal-object-rest-spread', { useBuiltIns: true } ],
-        [ 'module-resolver', { root: [ './' ], alias: { 'dr-js/module/(.+)': 'dr-js/library/' } } ],
+        [ 'module-resolver', { root: [ './' ] } ],
         [ 'minify-replace', getReplaceDEV(false) ],
         [ 'minify-guarded-expressions' ],
         [ 'minify-dead-code-elimination' ]

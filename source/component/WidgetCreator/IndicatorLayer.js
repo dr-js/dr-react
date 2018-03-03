@@ -1,12 +1,21 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import { immutableTransformCache } from 'source/__dev__'
 import { renderWidget } from 'source/component/Widget'
 import { STYLE_DISPLAY_NONE } from 'source/component/Widget/DOM'
 
-import LocalClassName from './indicator-layer.pcss'
-const CSS_INDICATOR_LAYER = LocalClassName[ 'indicator-layer' ]
+const IndicatorLayerDiv = styled.div`
+  pointer-events: auto;
+  z-index: 1;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 167, 57, 0.05);
+`
+
+const EMPTY_FUNC = () => {}
 
 class IndicatorLayer extends PureComponent {
   static propTypes = {
@@ -43,11 +52,11 @@ class IndicatorLayer extends PureComponent {
     const viewportStyle = isActive ? this.getViewportStyleCached(viewport) : STYLE_DISPLAY_NONE
     const offsetLayerStyle = previewWidget ? this.getOffsetLayerStyleCached(zoom, centerOffset, isValidPlace) : STYLE_DISPLAY_NONE
 
-    return <div ref={setRef} className={CSS_INDICATOR_LAYER} style={viewportStyle}>
+    return <IndicatorLayerDiv innerRef={setRef} style={viewportStyle}>
       <div style={offsetLayerStyle}>
-        {previewWidget && renderWidget(previewWidget, false, { zoom, isLock: true, setRef: () => {} })}
+        {previewWidget && renderWidget(previewWidget, false, { zoom, isLock: true, setRef: EMPTY_FUNC })}
       </div>
-    </div>
+    </IndicatorLayerDiv>
   }
 }
 
