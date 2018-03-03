@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { injectGlobal } from 'styled-components'
 import { arrayFindSet } from 'dr-js/module/common/immutable/ImmutableOperation'
 
 import { immutableTransformCache } from 'source/__dev__'
@@ -10,8 +11,9 @@ import { applyWidgetEditorStateProcessor } from 'source/state/widgetEditor/proce
 import { WidgetLayer, WidgetLayerSnapshot } from './WidgetLayer'
 import { IndicatorLayer } from './IndicatorLayer'
 
-import LocalClassName from './index.pcss'
-const CSS_EVENT_DEFAULT_FIX = LocalClassName[ 'event-default-fix' ]
+const CSS_EVENT_DEFAULT_FIX = 'event-default-fix'
+
+injectGlobal`.${CSS_EVENT_DEFAULT_FIX} { touch-action: none; user-select: none; }`
 
 const DEFAULT_CENTER_OFFSET = { x: 0, y: 0 }
 

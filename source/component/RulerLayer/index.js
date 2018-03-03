@@ -3,66 +3,57 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { color } from 'source/style/color'
-
 import { RulerHorizontal, RulerVertical } from './Ruler'
-
-// import LocalClassName from './index.pcss'
-// const CSS_RULER = LocalClassName[ 'ruler' ]
 
 const SIZE_RULER = '16px'
 
-const RulerDiv = styled.div`
-  & > .ruler-intersection,
-  & > .ruler-horizontal,
-  & > .ruler-vertical,
-  & > .ruler-content {
-    position: absolute;
-    overflow: hidden;
-  }
-  & > .ruler-intersection {
-    top: 0;
-    left: 0;
-    width: ${SIZE_RULER};
-    height: ${SIZE_RULER};
-    border: 0;
-    border-right: 1px solid ${color.border};
-    border-bottom: 1px solid ${color.border};
-    background: ${color.background};
-    transition: background 0.3s ease;
-    &.active { background: ${color.text}; }
-  }
-  & > .ruler-horizontal {
-    top: 0;
-    left: ${SIZE_RULER};
-    width: calc(100% - ${SIZE_RULER});
-    height: ${SIZE_RULER};
-    border-bottom: 1px solid ${color.border};
-  }
-  & > .ruler-vertical {
-    top: ${SIZE_RULER};
-    left: 0;
-    width: ${SIZE_RULER};
-    height: calc(100% - ${SIZE_RULER});
-    border-right: 1px solid ${color.border};
-  }
-  & > .ruler-content {
-    top: ${SIZE_RULER};
-    left: ${SIZE_RULER};
-    width: calc(100% - ${SIZE_RULER});
-    height: calc(100% - ${SIZE_RULER});
-  }
+const BaseDiv = styled.div`
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: ${SIZE_RULER};
+  height: ${SIZE_RULER};
+`
+
+const IntersectionButton = styled(BaseDiv.withComponent('button'))`
+  border: 0;
+  border-right: 1px solid ${color.border};
+  border-bottom: 1px solid ${color.border};
+  background: ${color.background};
+  transition: background 0.3s ease;
+  &.active { background: ${color.text}; }
+`
+
+const RulerHorizontalDiv = styled(BaseDiv.withComponent(RulerHorizontal))`
+  left: ${SIZE_RULER};
+  width: calc(100% - ${SIZE_RULER});
+  border-bottom: 1px solid ${color.border};
+`
+
+const RulerVerticalDiv = styled(BaseDiv.withComponent(RulerVertical))`
+  top: ${SIZE_RULER};
+  height: calc(100% - ${SIZE_RULER});
+  border-right: 1px solid ${color.border};
+`
+
+const ContentDiv = styled(BaseDiv)`
+  top: ${SIZE_RULER};
+  left: ${SIZE_RULER};
+  width: calc(100% - ${SIZE_RULER});
+  height: calc(100% - ${SIZE_RULER});
 `
 
 const RulerLayer = ({ zoom, valueX, valueY, onClick, className, children }) => {
   const isActive = (valueX !== 0 || valueY !== 0)
-  return <RulerDiv className={className || ''}>
-    <button className={`ruler-intersection ${isActive ? 'active' : ''}`} onClick={isActive ? onClick : null} disabled={!isActive} />
-    <RulerHorizontal className="ruler-horizontal" zoom={zoom} valueX={valueX} />
-    <RulerVertical className="ruler-vertical" zoom={zoom} valueY={valueY} />
-    <div className="ruler-content">
+  return <div className={className || ''}>
+    <IntersectionButton className={isActive ? 'active' : ''} onClick={isActive ? onClick : null} disabled={!isActive} />
+    <RulerHorizontalDiv zoom={zoom} valueX={valueX} />
+    <RulerVerticalDiv zoom={zoom} valueY={valueY} />
+    <ContentDiv>
       {children}
-    </div>
-  </RulerDiv>
+    </ContentDiv>
+  </div>
 }
 RulerLayer.propTypes = {
   zoom: PropTypes.number,

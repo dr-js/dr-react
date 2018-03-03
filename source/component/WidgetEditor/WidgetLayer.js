@@ -1,12 +1,17 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import { immutableTransformCache } from 'source/__dev__'
-
 import { renderWidget } from 'source/component/Widget'
 
-import LocalClassName from './widget-layer.pcss'
-const CSS_WIDGET_LAYER = LocalClassName[ 'widget-layer' ]
+const WidgetLayerDiv = styled.div`
+  z-index: 0; /* z-context-editor */
+  overflow: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+`
 
 class WidgetLayer extends PureComponent {
   static propTypes = {
@@ -33,23 +38,23 @@ class WidgetLayer extends PureComponent {
     const { zoom, isLock, widgetList, previewWidgetDataMap, funcPack: { setExternalLockWidgetId, setWidgetLayerElement, setWidgetElement } } = this.props
     const pack = this.getPackCached(zoom, isLock, setExternalLockWidgetId, setWidgetElement)
 
-    return <div ref={setWidgetLayerElement} className={CSS_WIDGET_LAYER}>
+    return <WidgetLayerDiv innerRef={setWidgetLayerElement}>
       {widgetList.map((widget) => {
         const previewWidgetData = previewWidgetDataMap[ widget.id ]
         if (!previewWidgetData) return renderWidget(widget, false, pack)
         const { isSelect, isBindSelect, previewWidget } = previewWidgetData
         return renderWidget(previewWidget, isSelect || isBindSelect, pack)
       })}
-    </div>
+    </WidgetLayerDiv>
   }
 }
 
 const WidgetLayerSnapshot = ({ widgetList, zoom, isLock }) => {
   const widgetProps = { zoom, isLock }
 
-  return <div className={CSS_WIDGET_LAYER}>
+  return <WidgetLayerDiv>
     {widgetList.map((widget) => renderWidget(widget, widgetProps))}
-  </div>
+  </WidgetLayerDiv>
 }
 WidgetLayerSnapshot.propTypes = WidgetLayer.propTypes
 

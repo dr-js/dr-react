@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import { immutableTransformCache } from 'source/__dev__'
-
+import { color } from 'source/style/color'
 import { WIDGET_SHAPE_TYPE } from 'source/widget/type/shape'
 import {
   HANDLE_TYPE,
@@ -18,8 +19,87 @@ import {
   getElbowAnchorEndTransformStyle
 } from 'source/component/Widget/DOM'
 
-import LocalClassName from './handle-layer.pcss'
-const CSS_HANDLE_LAYER = LocalClassName[ 'handle-layer' ]
+const HANDLE_OFFSET = '24px'
+const HANDLE_MASK_SIZE = '16px'
+const HANDLE_RECT_SIZE = '8px'
+const HANDLE_CIRCLE_SIZE = '8px'
+
+const HandleLayerDiv = styled.div`
+  position: absolute;
+  box-shadow: inset 0 0 0 1px ${color.primary};
+  &.no-border { box-shadow: none; }
+  &.weak-border { box-shadow: inset 0 0 0 1px rgba(255, 0, 0, 0.2); }
+`
+
+const EditHandleDiv = styled.div`
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: ${HANDLE_MASK_SIZE};
+  height: ${HANDLE_MASK_SIZE};
+  margin: calc(${HANDLE_MASK_SIZE} * -0.5);
+  z-index: 1;
+  &::after {
+    content: '';
+    width: ${HANDLE_RECT_SIZE};
+    height: ${HANDLE_RECT_SIZE};
+    box-shadow: inset 0 0 0 1px ${color.primary};
+    background: #fff;
+  }
+
+  &.begin::after,
+  &.end::after,
+  &.rotate::after,
+  &.anchor::after {
+    width: ${HANDLE_CIRCLE_SIZE};
+    height: ${HANDLE_CIRCLE_SIZE};
+    border-radius: 100%;
+  }
+
+  /*
+  &.rotate::after { background: #ff9; }
+  &.begin::after, &.end::after { background: #f9f; }
+  */
+
+  &.anchor {
+    cursor: move;
+    top: 50%;
+    left: 50%;
+    &.x { cursor: col-resize; }
+    &.y { cursor: row-resize; }
+    &.head, &.tail { cursor: pointer; }
+    /* &.head::after, &.tail::after { background: #9ff; } */
+  }
+  &.move { display: none; }
+  &.rotate { cursor: pointer; top: calc(${HANDLE_OFFSET} * -1); left: 50%; }
+  &.width { cursor: w-resize; left: 0; top: 50%; }
+  &.begin { cursor: pointer; top: 0; left: 50%; }
+  &.end { cursor: pointer; bottom: 0; left: 50%; }
+  &.n { cursor: n-resize; top: 0; left: 50%; }
+  &.s { cursor: s-resize; bottom: 0; left: 50%; }
+  &.e { cursor: e-resize; right: 0; top: 50%; }
+  &.w { cursor: w-resize; left: 0; top: 50%; }
+  &.ne { cursor: ne-resize; right: 0; top: 0; }
+  &.nw { cursor: nw-resize; left: 0; top: 0; }
+  &.se { cursor: se-resize; right: 0; bottom: 0; }
+  &.sw { cursor: sw-resize; left: 0; bottom: 0; }
+`
+
+/* &.elbow-add,
+&.elbow-delete {
+  pointer-events: auto;
+  position: absolute;
+  &::after { width: ${HANDLE_RECT_SIZE}; height: ${HANDLE_RECT_SIZE}; }
+}
+&.elbow-add::after { content: '+'; }
+&.elbow-delete::after { content: '-'; } */
+
+const EditHandleElbowLayerDiv = styled.div`
+  pointer-events: none;
+  position: absolute;
+`
 
 const KEY_EVENT_LIST = [ 'keypress', 'keydown', 'keyup' ]
 
@@ -36,10 +116,10 @@ class HandleLayer extends PureComponent {
     super(props)
 
     this.handleComponentListMap = Object.keys(HANDLE_TYPE_LIST_MAP).reduce((o, shape) => {
-      o[ shape ] = HANDLE_TYPE_LIST_MAP[ shape ].map((name) => <div
+      o[ shape ] = HANDLE_TYPE_LIST_MAP[ shape ].map((name) => <EditHandleDiv
         key={name}
-        ref={(ref) => this.props.setHandleElement(name, ref)}
-        className={`edit-handle ${name}`}
+        innerRef={(ref) => this.props.setHandleElement(name, ref)}
+        className={name}
       />)
       return o
     }, {})
@@ -93,19 +173,19 @@ class HandleLayer extends PureComponent {
     anchors.forEach((v, i) => {
       if (i >= anchorStart && i <= anchorEnd) {
         const handleIndex = elbowHandleTypeList.indexOf(getElbowAnchorHandleType(lastAnchor, v, i))
-        handleIndex !== -1 && componentList.push(<div key={i} className="edit-handle-elbow-layer" style={getElbowAnchorTransformStyle(lastAnchor, v, width, zoom)}>
+        handleIndex !== -1 && componentList.push(<EditHandleElbowLayerDiv key={i} style={getElbowAnchorTransformStyle(lastAnchor, v, width, zoom)}>
           {elbowHandleComponentList[ handleIndex ]}
-        </div>)
+        </EditHandleElbowLayerDiv>)
       }
       lastAnchor = v
     })
 
-    componentList.push(<div key="head" className="edit-handle-elbow-layer" style={getElbowAnchorEndTransformStyle(anchors[ 0 ], width, zoom)}>
+    componentList.push(<EditHandleElbowLayerDiv key="head" style={getElbowAnchorEndTransformStyle(anchors[ 0 ], width, zoom)}>
       {elbowHandleComponentList[ elbowHandleTypeList.indexOf(shape === WIDGET_SHAPE_TYPE.ELBOW ? HANDLE_TYPE.ANCHOR_HEAD : HANDLE_TYPE.ANCHOR_HEAD_LINK) ]}
-    </div>)// ANCHOR_HEAD / ANCHOR_HEAD_LINK
-    componentList.push(<div key="tail" className="edit-handle-elbow-layer" style={getElbowAnchorEndTransformStyle(anchors[ anchors.length - 1 ], width, zoom)}>
+    </EditHandleElbowLayerDiv>)// ANCHOR_HEAD / ANCHOR_HEAD_LINK
+    componentList.push(<EditHandleElbowLayerDiv key="tail" style={getElbowAnchorEndTransformStyle(anchors[ anchors.length - 1 ], width, zoom)}>
       {elbowHandleComponentList[ elbowHandleTypeList.indexOf(shape === WIDGET_SHAPE_TYPE.ELBOW ? HANDLE_TYPE.ANCHOR_TAIL : HANDLE_TYPE.ANCHOR_TAIL_LINK) ]}
-    </div>)// ANCHOR_TAIL / ANCHOR_TAIL_LINK
+    </EditHandleElbowLayerDiv>)// ANCHOR_TAIL / ANCHOR_TAIL_LINK
 
     return componentList
   }
@@ -113,9 +193,9 @@ class HandleLayer extends PureComponent {
   renderElbowHandleListDelete (widget, zoom) {
     const { anchors, width } = widget
     if (anchors.length <= 4) return null
-    return anchors.map((anchor, index) => <div
+    return anchors.map((anchor, index) => <EditHandleDiv
       key={index}
-      className="edit-handle elbow-delete"
+      className="elbow-delete"
       style={getElbowAnchorHandleTransformStyle(anchor, width, zoom)}
       onClick={() => this.doElbowAnchorDelete(widget, index)}
     />)
@@ -124,9 +204,9 @@ class HandleLayer extends PureComponent {
   renderElbowHandleListAdd (widget, zoom) {
     const { anchors, width } = widget
     if (anchors.length >= 10) return null
-    return anchors.map((anchor, index) => <div
+    return anchors.map((anchor, index) => <EditHandleDiv
       key={index}
-      className="edit-handle elbow-add"
+      className="elbow-add"
       style={getElbowAnchorHandleTransformStyle(anchor, width, zoom)}
       onClick={() => this.doElbowAnchorAdd(widget, index)}
     />)
@@ -159,9 +239,9 @@ class HandleLayer extends PureComponent {
       : previewBoundingRect ? getBoundingRectTransformStyle(previewBoundingRect, zoom)
         : STYLE_DISPLAY_NONE
 
-    return <div className={`${CSS_HANDLE_LAYER} ${borderClassName}`} style={style}>
+    return <HandleLayerDiv className={borderClassName} style={style}>
       {singleSelectPreviewWidget && this.renderWidgetHandle(singleSelectPreviewWidget, zoom)}
-    </div>
+    </HandleLayerDiv>
   }
 }
 

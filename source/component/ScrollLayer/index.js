@@ -1,14 +1,60 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
 import { objectMerge } from 'dr-js/module/common/immutable/ImmutableOperation'
 import { debounceByAnimationFrame } from 'dr-js/module/browser/DOM'
 
 import { immutableTransformCache } from 'source/__dev__'
+import { color } from 'source/style/color'
 import { ZOOM_IN, ZOOM_OUT, reduceZoomAt } from 'source/state/editorZoom'
 
-import LocalClassName from './index.pcss'
-const CSS_SCROLL_LAYER = LocalClassName[ 'scroll-layer' ]
-const CSS_SCROLL_CONTEXT_LAYER = LocalClassName[ 'scroll-context-layer' ]
+import { getScrollContextStyle, CANCEL_MOUSE_DRAG, createMouseDragEventListenerMap } from './__utils__'
+
+const RootLayerDiv = styled.div`
+  z-index: 0; /* z-context-main */
+  overflow: hidden;
+  outline: none;
+  width: 100%;
+  height: 100%;
+
+  /*
+  Do Not Test this in Chrome when console is open, the cursor may not change
+  https://stackoverflow.com/questions/44162825/bug-wrong-behavior-involving-console-active-selectors-and-cursor
+  */
+  &.cursor-grab { cursor: grab; }
+  &.cursor-grabbing { cursor: grabbing; }
+`
+
+const OffsetLayerDiv = styled.div`
+  overflow: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  &.cursor-grab, 
+  &.cursor-grabbing { pointer-events: none; }
+`
+
+const ScrollLayerDiv = styled.div`
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`
+
+const RootContextLayerDiv = styled.div`
+  overflow: hidden;
+  position: relative;
+  background: ${color.background};
+`
+
+const CounterOffsetLayerDiv = styled.div`
+  overflow: visible;
+  position: absolute;
+`
 
 class ScrollLayer extends PureComponent {
   static propTypes = {
@@ -37,7 +83,6 @@ class ScrollLayer extends PureComponent {
 
     this.updateZoomAtDebounced = debounceByAnimationFrame((argvQueue) => {
       const [ clientX, clientY, isReduceZoomValue ] = argvQueue[ argvQueue.length - 1 ]
-
       const { zoom, viewport, centerOffset, onChange } = this.props
       onChange(reduceZoomAt({ zoom, viewport, centerOffset }, { clientX, clientY }, isReduceZoomValue))
     })
@@ -47,13 +92,7 @@ class ScrollLayer extends PureComponent {
         o[ 1 ] += deltaY
         return o
       }, [ 0, 0 ])
-
-      const { zoom, centerOffset, onChange } = this.props
-      const nextCenterOffset = objectMerge(centerOffset, {
-        x: centerOffset.x + deltaX / zoom,
-        y: centerOffset.y + deltaY / zoom
-      })
-      nextCenterOffset !== centerOffset && onChange({ centerOffset: nextCenterOffset })
+      this.updateCenterOffset(deltaX, deltaY)
     })
 
     this.doResetCenterOffset = () => this.props.onChange({ centerOffset: { x: 0, y: 0 } })
@@ -76,9 +115,7 @@ class ScrollLayer extends PureComponent {
           if (!this.props.allowScroll) return CANCEL_MOUSE_DRAG // cancel if currently in selection
           this.setState({ cursorClassName: 'cursor-grab' })
         },
-        onDragDisable: () => {
-          this.setState({ cursorClassName: '' })
-        },
+        onDragDisable: () => { this.setState({ cursorClassName: '' }) },
         onDragBegin: () => { this.setState({ cursorClassName: 'cursor-grabbing' }) },
         onDragEnd: () => { this.setState({ cursorClassName: 'cursor-grab' }) },
         onDragUpdate: this.updateCenterOffsetDebounced
@@ -92,6 +129,15 @@ class ScrollLayer extends PureComponent {
     this.elementRef = null
 
     this.state = { cursorClassName: '' }
+  }
+
+  updateCenterOffset (deltaX, deltaY) {
+    const { zoom, centerOffset, onChange } = this.props
+    const nextCenterOffset = objectMerge(centerOffset, {
+      x: centerOffset.x + deltaX / zoom,
+      y: centerOffset.y + deltaY / zoom
+    })
+    nextCenterOffset !== centerOffset && onChange({ centerOffset: nextCenterOffset })
   }
 
   componentDidMount () {
@@ -110,11 +156,11 @@ class ScrollLayer extends PureComponent {
     // const style = { transform: `translate(${Math.round(-x * zoom)}px, ${Math.round(-y * zoom)}px)` } // TODO: might be faster with transform && will-change
     const style = { left: `${Math.round(-x * zoom)}px`, top: `${Math.round(-y * zoom)}px` }
 
-    return <div ref={this.setRef} className={`${CSS_SCROLL_LAYER} ${cursorClassName || ''}`} {...this.editorEventMap}>
-      <div className="offset-layer" style={style}>
+    return <RootLayerDiv innerRef={this.setRef} className={cursorClassName || ''} {...this.editorEventMap}>
+      <OffsetLayerDiv className={cursorClassName || ''} style={style}>
         {children}
-      </div>
-    </div>
+      </OffsetLayerDiv>
+    </RootLayerDiv>
   }
 }
 
@@ -137,11 +183,13 @@ class ScrollLayerBounded extends ScrollLayer {
       })
     }
 
+    this.getScrollContextStyleCached = immutableTransformCache(getScrollContextStyle)
+
     this.setScrollElementRef = (ref) => (this.scrollElement = ref)
     this.scrollElement = null
   }
 
-  updateCenterOffset (deltaX = 0, deltaY = 0) {
+  updateCenterOffset (deltaX, deltaY) {
     const { onChange, zoom, centerOffset } = this.props
     const { scrollWidth, scrollHeight, clientWidth, clientHeight } = this.scrollElement
     const ratio = 1 / zoom
@@ -166,125 +214,32 @@ class ScrollLayerBounded extends ScrollLayer {
   render () {
     const { boundRect, zoom, viewport, className, children } = this.props
     const { cursorClassName } = this.state
-    const { contextStyle, counterOffsetStyle } = getScrollContextStyle(boundRect, zoom, viewport)
+    const { contextStyle, counterOffsetStyle } = this.getScrollContextStyleCached(boundRect, zoom, viewport)
 
-    return <div ref={this.setRef} className={`${CSS_SCROLL_LAYER} ${cursorClassName || ''} ${className || ''}`} {...this.editorEventMap}>
-      <div ref={this.setScrollElementRef} className="scroll-layer">
-        <div className={CSS_SCROLL_CONTEXT_LAYER} style={contextStyle}>
-          <div className="counter-offset-layer" style={counterOffsetStyle}>
+    return <RootLayerDiv innerRef={this.setRef} className={`${cursorClassName || ''} ${className || ''}`} {...this.editorEventMap}>
+      <ScrollLayerDiv innerRef={this.setScrollElementRef}>
+        <RootContextLayerDiv style={contextStyle}>
+          <CounterOffsetLayerDiv style={counterOffsetStyle}>
             {children}
-          </div>
-        </div>
-      </div>
-    </div>
+          </CounterOffsetLayerDiv>
+        </RootContextLayerDiv>
+      </ScrollLayerDiv>
+    </RootLayerDiv>
   }
 }
 
 const ScrollLayerStatic = ({ boundRect, zoom, children }) => {
   const { contextStyle, counterOffsetStyle } = getScrollContextStyle(boundRect, zoom)
-  return <div className={CSS_SCROLL_CONTEXT_LAYER} style={contextStyle}>
-    <div className="counter-offset-layer" style={counterOffsetStyle}>
+  return <RootContextLayerDiv style={contextStyle}>
+    <CounterOffsetLayerDiv style={counterOffsetStyle}>
       {children}
-    </div>
-  </div>
+    </CounterOffsetLayerDiv>
+  </RootContextLayerDiv>
 }
 ScrollLayerStatic.propTypes = {
   boundRect: PropTypes.object,
   zoom: PropTypes.number,
   children: PropTypes.node
-}
-
-const SCROLL_CONTEXT_PADDING_SIZE = 240 // px
-const getScrollContextStyle = immutableTransformCache((boundRect, zoom, viewport = null) => {
-  const { center, size } = boundRect
-  const width = Math.round(size.x * zoom + SCROLL_CONTEXT_PADDING_SIZE * 2)
-  const height = Math.round(size.y * zoom + SCROLL_CONTEXT_PADDING_SIZE * 2)
-  const fillLeft = viewport ? Math.round((viewport.width - width) * 0.5) : 0
-  const fillTop = viewport ? Math.round((viewport.height - height) * 0.5) : 0
-  const offsetLeft = Math.round(SCROLL_CONTEXT_PADDING_SIZE - (center.x - size.x * 0.5) * zoom)
-  const offsetTop = Math.round(SCROLL_CONTEXT_PADDING_SIZE - (center.y - size.y * 0.5) * zoom)
-  return {
-    contextStyle: {
-      width: `${width}px`,
-      height: `${height}px`,
-      minWidth: `${width}px`,
-      minHeight: `${height}px`,
-      left: fillLeft > 0 ? `${fillLeft}px` : '',
-      top: fillTop > 0 ? `${fillTop}px` : ''
-    },
-    counterOffsetStyle: {
-      left: `${offsetLeft}px`,
-      top: `${offsetTop}px`
-    }
-  }
-})
-
-const CANCEL_MOUSE_DRAG = 'CANCEL_MOUSE_DRAG'
-
-const createMouseDragEventListenerMap = ({ onDragEnable, onDragDisable, onDragBegin, onDragUpdate, onDragEnd, isSkipKeySpaceDown = false }) => {
-  let isKeySpaceDown = isSkipKeySpaceDown
-  let isMouseMiddleButtonDown = false
-  let isMouseDrag = false
-  let prevClientX = 0
-  let prevClientY = 0
-
-  return {
-    tabIndex: 0,
-    ...(isSkipKeySpaceDown ? null : {
-      onKeyDown: (event) => {
-        if (event.key !== ' ' || isKeySpaceDown) return
-        const result = onDragEnable && onDragEnable()
-        if (result === CANCEL_MOUSE_DRAG) return
-        event.preventDefault()
-        isKeySpaceDown = true
-      },
-      onKeyUp: () => {
-        if (!isKeySpaceDown) return
-        onDragDisable && onDragDisable()
-        isKeySpaceDown = false
-        isMouseDrag = false
-      },
-      onBlur: () => {
-        if (!isKeySpaceDown) return
-        onDragDisable && onDragDisable()
-        isKeySpaceDown = false
-        isMouseDrag = false
-      }
-    }),
-    onMouseDown: (event) => {
-      if (!isKeySpaceDown && event.button !== 1) return // also allow middle mouse button dragging
-      if (!isKeySpaceDown && event.button === 1) {
-        const result = onDragEnable && onDragEnable()
-        if (result === CANCEL_MOUSE_DRAG) return
-        isMouseMiddleButtonDown = true
-      }
-      const result = onDragBegin && onDragBegin()
-      if (result === CANCEL_MOUSE_DRAG) return
-      event.preventDefault()
-      event.stopPropagation()
-      isMouseDrag = true
-      prevClientX = event.clientX
-      prevClientY = event.clientY
-    },
-    onMouseMove: (event) => {
-      if ((!isKeySpaceDown && !isMouseMiddleButtonDown) || !isMouseDrag) return
-      const result = onDragUpdate && onDragUpdate(prevClientX - event.clientX, prevClientY - event.clientY)
-      if (result === CANCEL_MOUSE_DRAG) return
-      event.preventDefault()
-      event.stopPropagation()
-      prevClientX = event.clientX
-      prevClientY = event.clientY
-    },
-    onMouseUp: (event) => {
-      if ((!isKeySpaceDown && !isMouseMiddleButtonDown) || !isMouseDrag) return
-      onDragEnd && onDragEnd()
-      isMouseDrag = false
-      if (!isKeySpaceDown && isMouseMiddleButtonDown) {
-        onDragDisable && onDragDisable()
-        isMouseMiddleButtonDown = false
-      }
-    }
-  }
 }
 
 export {

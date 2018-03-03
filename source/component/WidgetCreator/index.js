@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import { applyWidgetCreatorStateProcessor } from 'source/state/widgetCreator/processor'
 import { reducerMap } from 'source/state/widgetCreator/state'
@@ -7,8 +8,20 @@ import { reducerMap } from 'source/state/widgetCreator/state'
 import { SampleLayer } from './SampleLayer'
 import { IndicatorLayer } from './IndicatorLayer'
 
-import LocalClassName from './index.pcss'
-const CSS_WIDGET_CREATOR = LocalClassName[ 'widget-creator' ]
+const WidgetCreatorDiv = styled.div`
+  pointer-events: none;
+  touch-action: none;
+  user-select: none;
+  overflow: hidden;
+  position: absolute;
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`
 
 const mutateDataUpdate = (data, key, value) => value ? (data[ key ] = value) : delete data[ key ]
 
@@ -77,10 +90,10 @@ class WidgetCreator extends PureComponent {
 
     __DEV__ && console.log(`[RENDER] WidgetCreator`)
 
-    return <div ref={this.setCreatorLayerElement} className={CSS_WIDGET_CREATOR}>
+    return <WidgetCreatorDiv innerRef={this.setCreatorLayerElement}>
       <SampleLayer {...{ isLock, selectSampleShape, funcPack: this.sampleLayerFuncPack }} />
       <IndicatorLayer {...{ zoom, centerOffset, viewport, previewWidget, isValidPlace, isActive: Boolean(!isLock && (previewWidget || selectSampleShape)), setRef: this.setIndicatorLayerElement }} />
-    </div>
+    </WidgetCreatorDiv>
   }
 }
 

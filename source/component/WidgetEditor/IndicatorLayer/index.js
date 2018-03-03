@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import { STYLE_DISPLAY_NONE, getBoundingRectTransformStyle } from 'source/component/Widget/DOM'
 
@@ -7,8 +8,20 @@ import { HoverTargetLayer } from './HoverTargetLayer'
 import { HandleLayer } from './HandleLayer'
 import { SnapLayer } from './SnapLayer'
 
-import LocalClassName from './index.pcss'
-const CSS_INDICATOR_LAYER = LocalClassName[ 'indicator-layer' ]
+const IndicatorLayerDiv = styled.div`
+  pointer-events: none;
+  z-index: 1; /* z-context-editor */
+  overflow: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+`
+
+const SelectRangeDiv = styled.div`
+  position: absolute;
+  background: rgba(255, 167, 57, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(255, 167, 57, 0.4);
+`
 
 class IndicatorLayer extends PureComponent {
   static propTypes = {
@@ -50,22 +63,20 @@ class IndicatorLayer extends PureComponent {
       }
     } = this.props
 
-    return <div ref={setIndicatorLayerElement} className={CSS_INDICATOR_LAYER}>
+    return <IndicatorLayerDiv innerRef={setIndicatorLayerElement}>
       <HandleLayer {...{ zoom, singleSelectPreviewWidget, previewBoundingRect, setHandleElement, updateWidget }} />
       <HoverTargetLayer {...{ zoom, handleType, hoverWidget, setHoverTargetElement }} />
       <SnapLayer {...{ zoom, snapDataList, previewBoundingRect }} />
       <RangeLayer {...{ rangeBoundingRect }} />
-    </div>
+    </IndicatorLayerDiv>
   }
 }
 
-const RangeLayer = ({ rangeBoundingRect }) => {
-  const style = rangeBoundingRect
+const RangeLayer = ({ rangeBoundingRect }) => <SelectRangeDiv style={
+  rangeBoundingRect
     ? getBoundingRectTransformStyle(rangeBoundingRect, 1)
     : STYLE_DISPLAY_NONE
-
-  return <div className="select-range" style={style} />
-}
+} />
 RangeLayer.propTypes = {
   rangeBoundingRect: PropTypes.object
 }

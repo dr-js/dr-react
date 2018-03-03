@@ -1,11 +1,23 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
+import { color } from 'source/style/color'
 import { SNAP_TYPE } from 'source/widget/type/snap'
 import { formatSnapBoundingRect } from 'source/widget/math/snap'
 
-import LocalClassName from './snap-layer.pcss'
-const CSS_SNAP_LAYER = LocalClassName[ 'snap-layer' ]
+const SnapLayerDiv = styled.div`
+  pointer-events: none;
+  position: absolute;
+`
+
+const SnapIndicatorDiv = styled.div`
+  position: absolute;
+  &.horizontal { border-top: 1px solid ${color.primary}; }
+  &.horizontal.dashed { border-top: 1px dashed ${color.primary}; }
+  &.vertical { border-left: 1px solid ${color.primary}; }
+  &.vertical.dashed { border-left: 1px dashed ${color.primary}; }
+`
 
 class SnapLayer extends PureComponent {
   static propTypes = {
@@ -21,9 +33,9 @@ class SnapLayer extends PureComponent {
     const snapBoundingRect = formatSnapBoundingRect(previewBoundingRect) // round to integer
     const snapIndicatorState = snapDataList.reduce((o, snapData) => reduceSnapIndicatorState(o, snapData, snapBoundingRect), INITIAL_SNAP_INDICATOR_STATE)
 
-    return <div className={CSS_SNAP_LAYER}>
+    return <SnapLayerDiv>
       {renderSnapIndicatorData(snapIndicatorState, zoom)}
-    </div>
+    </SnapLayerDiv>
   }
 }
 
@@ -142,18 +154,18 @@ const renderSnapIndicatorData = (snapIndicatorState, zoom) => {
   return componentList
 }
 
-const renderIndicatorHorizontal = (y, isDashed, fromX, toX, zoom, key) => <div {...{
+const renderIndicatorHorizontal = (y, isDashed, fromX, toX, zoom, key) => <SnapIndicatorDiv {...{
   key,
-  className: `snap-indicator horizontal ${isDashed ? 'dashed' : ''}`,
+  className: `horizontal ${isDashed ? 'dashed' : ''}`,
   style: {
     transform: `translate(${Math.round(fromX * zoom)}px, ${Math.round(y * zoom)}px)`,
     width: `${Math.round((toX - fromX) * zoom)}px`
   }
 }} />
 
-const renderIndicatorVertical = (x, isDashed, fromY, toY, zoom, key) => <div {...{
+const renderIndicatorVertical = (x, isDashed, fromY, toY, zoom, key) => <SnapIndicatorDiv {...{
   key,
-  className: `snap-indicator vertical ${isDashed ? 'dashed' : ''}`,
+  className: `vertical ${isDashed ? 'dashed' : ''}`,
   style: {
     transform: `translate(${Math.round(x * zoom)}px, ${Math.round(fromY * zoom)}px)`,
     height: `${Math.round((toY - fromY) * zoom)}px`
