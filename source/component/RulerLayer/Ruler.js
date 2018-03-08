@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import { immutableTransformCache } from 'source/__dev__'
+import { transformCache } from 'source/__dev__'
 
 import {
   getOffscreenCanvasElement,
@@ -87,7 +87,7 @@ class RulerHorizontal extends RulerBase {
   constructor (props) {
     super(props)
 
-    this.updateBufferCanvasMetric = immutableTransformCache((bufferCanvasElement, bufferCanvasContext, canvasWidth, canvasHeight, deviceScale, unitSize, groupSize, zoom) => {
+    this.updateBufferCanvasMetric = transformCache((bufferCanvasElement, bufferCanvasContext, canvasWidth, canvasHeight, deviceScale, unitSize, groupSize, zoom) => {
       const pixelPerGroup = unitSize * groupSize * zoom * deviceScale
       const bufferCanvasWidth = Math.floor(calcValueHighBoundForGroup(canvasWidth, pixelPerGroup) + pixelPerGroup)
       // __DEV__ && console.log('[RulerHorizontal] updateBufferCanvasMetric')
@@ -133,7 +133,7 @@ class RulerVertical extends RulerBase {
   constructor (props) {
     super(props)
 
-    this.updateBufferCanvasMetric = immutableTransformCache((bufferCanvasElement, bufferCanvasContext, canvasWidth, canvasHeight, deviceScale, unitSize, groupSize, zoom) => {
+    this.updateBufferCanvasMetric = transformCache((bufferCanvasElement, bufferCanvasContext, canvasWidth, canvasHeight, deviceScale, unitSize, groupSize, zoom) => {
       const pixelPerGroup = unitSize * groupSize * zoom * deviceScale
       const bufferCanvasHeight = Math.floor(calcValueHighBoundForGroup(canvasHeight, pixelPerGroup) + pixelPerGroup)
       // __DEV__ && console.log('[RulerVertical] updateBufferCanvasMetric')

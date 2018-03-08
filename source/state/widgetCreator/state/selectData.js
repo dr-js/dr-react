@@ -1,4 +1,4 @@
-import { objectSet } from 'dr-js/module/common/immutable/ImmutableOperation'
+import { objectSet } from 'dr-js/module/common/immutable/Object'
 
 const updateSelectData = (editorState, state) => objectSet(editorState, 'selectData', state)
 

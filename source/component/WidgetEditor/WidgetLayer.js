@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { immutableTransformCache } from 'source/__dev__'
+import { transformCache } from 'source/__dev__'
 import { renderWidget } from 'source/component/Widget'
 
 const WidgetLayerDiv = styled.div`
@@ -29,7 +29,7 @@ class WidgetLayer extends PureComponent {
   constructor (props) {
     super(props)
 
-    this.getPackCached = immutableTransformCache((zoom, isLock, setExternalLockWidgetId, setWidgetElement) => ({
+    this.getPackCached = transformCache((zoom, isLock, setExternalLockWidgetId, setWidgetElement) => ({
       zoom, isLock, setExternalLockWidgetId, setRef: setWidgetElement
     }))
   }

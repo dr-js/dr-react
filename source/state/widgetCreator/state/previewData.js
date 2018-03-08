@@ -1,4 +1,4 @@
-import { objectSet } from 'dr-js/module/common/immutable/ImmutableOperation'
+import { objectSet } from 'dr-js/module/common/immutable/Object'
 import { fromPoint as widgetFromPoint, fromLine as widgetFromLine } from 'dr-js/module/common/geometry/D2/Widget'
 
 import { WIDGET_SHAPE_TYPE } from 'source/widget/type/shape'

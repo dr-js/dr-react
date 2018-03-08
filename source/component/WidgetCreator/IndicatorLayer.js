@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { immutableTransformCache } from 'source/__dev__'
+import { transformCache } from 'source/__dev__'
 import { renderWidget } from 'source/component/Widget'
 import { STYLE_DISPLAY_NONE } from 'source/component/Widget/DOM'
 
@@ -31,7 +31,7 @@ class IndicatorLayer extends PureComponent {
   constructor (props) {
     super(props)
 
-    this.getViewportStyleCached = immutableTransformCache((viewport) => ({
+    this.getViewportStyleCached = transformCache((viewport) => ({
       position: 'fixed',
       left: `${viewport.left}px`,
       top: `${viewport.top}px`,
@@ -39,7 +39,7 @@ class IndicatorLayer extends PureComponent {
       height: `${viewport.height}px`
     }))
 
-    this.getOffsetLayerStyleCached = immutableTransformCache((zoom, centerOffset, isValidPlace) => ({
+    this.getOffsetLayerStyleCached = transformCache((zoom, centerOffset, isValidPlace) => ({
       position: 'absolute',
       left: `${Math.round(-centerOffset.x * zoom)}px`,
       top: `${Math.round(-centerOffset.y * zoom)}px`,

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { immutableTransformCache } from 'source/__dev__'
+import { transformCache } from 'source/__dev__'
 import { color } from 'source/style/color'
 import { WIDGET_SHAPE_TYPE } from 'source/widget/type/shape'
 import {
@@ -129,7 +129,7 @@ class HandleLayer extends PureComponent {
     this.doElbowAnchorAdd = (widget, anchorIndex) => { this.props.updateWidget(calcElbowAnchorAdd(widget, anchorIndex)) }
     this.doElbowAnchorDelete = (widget, anchorIndex) => { this.props.updateWidget(calcElbowAnchorDelete(widget, anchorIndex)) }
 
-    this.getSelectSingleWidgetCached = immutableTransformCache((widgetList, selectIdList) => {
+    this.getSelectSingleWidgetCached = transformCache((widgetList, selectIdList) => {
       const selectSingleWidgetId = selectIdList.length === 1 && selectIdList[ 0 ]
       return selectSingleWidgetId && widgetList.find(({ id }) => id === selectSingleWidgetId)
     })

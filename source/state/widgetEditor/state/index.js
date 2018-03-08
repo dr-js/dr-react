@@ -1,4 +1,4 @@
-import { objectMerge, objectSet } from 'dr-js/module/common/immutable/ImmutableOperation'
+import { objectMerge, objectSet } from 'dr-js/module/common/immutable/Object'
 
 import { initialState as initialStateSelectData, reducerMap as reducerMapSelectData } from './selectData'
 import { initialState as initialStateHoverData, reducerMap as reducerMapHoverData } from './hoverData'

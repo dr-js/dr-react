@@ -1,4 +1,4 @@
-import { arrayDelete, arrayPush, arrayUnshift } from 'dr-js/module/common/immutable/ImmutableOperation'
+import { arrayDelete, arrayPush, arrayUnshift } from 'dr-js/module/common/immutable/Array'
 import { add, sub, min, round } from 'dr-js/module/common/geometry/D2/Vector'
 import { localPoint, localBoundingRect } from 'dr-js/module/common/geometry/D2/Widget'
 

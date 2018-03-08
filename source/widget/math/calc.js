@@ -1,4 +1,4 @@
-import { objectMerge, objectSet } from 'dr-js/module/common/immutable/ImmutableOperation'
+import { objectMerge, objectSet } from 'dr-js/module/common/immutable/Object'
 import { roundFloat } from 'dr-js/module/common/math/base'
 import { add, round } from 'dr-js/module/common/geometry/D2/Vector'
 import { fromPoint as widgetFromPoint, fromLine as widgetFromLine } from 'dr-js/module/common/geometry/D2/Widget'

@@ -1,4 +1,4 @@
-import { objectSet } from 'dr-js/module/common/immutable/ImmutableOperation'
+import { objectSet } from 'dr-js/module/common/immutable/Object'
 
 import { findKeyInMap } from 'source/__utils__/data'
 import { getElementCenterUnder } from 'source/__utils__/DOM'

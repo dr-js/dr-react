@@ -1,21 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { objectMerge, objectSet, arrayPush } from 'dr-js/module/common/immutable/ImmutableOperation'
+import { objectMerge, objectSet } from 'dr-js/module/common/immutable/Object'
+import { arrayPush } from 'dr-js/module/common/immutable/Array'
 import { createStateStore } from 'dr-js/module/common/immutable/StateStore'
 
-import { immutableTransformCache } from 'source/__dev__'
+import { transformCache, delayArgvQueueByAnimationFrame } from 'source/__dev__'
 import { WidgetCreator } from 'source/component/WidgetCreator'
 import { WidgetEditor } from 'source/component/WidgetEditor'
 import { initialState as initialWidgetCreatorState, reducerMap as reducerWidgetCreatorMap } from 'source/state/widgetCreator/state'
 import { initialState as initialWidgetEditorState, reducerMap as reducerWidgetEditorMap } from 'source/state/widgetEditor/state'
 import { duplicateWidget } from 'source/widget/data/duplicate'
 
-const mapWidgetCreatorStateCached = immutableTransformCache((isPause, isLock, zoom, centerOffset, viewport) => ({
+const mapWidgetCreatorStateCached = transformCache((isPause, isLock, zoom, centerOffset, viewport) => ({
   isPause, isLock, zoom, centerOffset, viewport
 }))
 const getWidgetCreatorStateCached = ({ isPause, isLock, zoom, centerOffset, viewport }) => mapWidgetCreatorStateCached(isPause, isLock, zoom, centerOffset, viewport)
-const mapWidgetEditorStateCached = immutableTransformCache((isPause, isLock, widgetList, lockWidgetId, zoom, centerOffset, viewport) => ({
+const mapWidgetEditorStateCached = transformCache((isPause, isLock, widgetList, lockWidgetId, zoom, centerOffset, viewport) => ({
   isPause, isLock, widgetList, lockWidgetId, zoom, centerOffset, viewport
 }))
 const getWidgetEditorStateCached = ({ isPause, isLock, widgetList, lockWidgetId, zoom, centerOffset, viewport }) => mapWidgetEditorStateCached(isPause, isLock, widgetList, lockWidgetId, zoom, centerOffset, viewport)
@@ -31,18 +32,22 @@ const initReactRender = ({ rootElement, initialState: externalState }) => {
 
   // simple store
   const getState = () => externalState
-  const updateState = (externalData) => {
+  const updateStateDelayed = delayArgvQueueByAnimationFrame((argvQueue) => {
+    const [ externalData ] = argvQueue[ argvQueue.length - 1 ]
+    __DEV__ && console.time('[Root] updateState')
     creatorStateStore.setState(reducerWidgetCreatorMap[ 'reducer:set:external-data' ](creatorStateStore.getState(), getWidgetCreatorStateCached(externalData)))
     editorStateStore.setState(reducerWidgetEditorMap[ 'reducer:set:external-data' ](editorStateStore.getState(), getWidgetEditorStateCached(externalData)))
-  }
+    __DEV__ && console.timeEnd('[Root] updateState')
+  })
+
   const appendExternalWidgetList = (widget) => {
     widget = duplicateWidget(widget)
     externalState = objectSet(externalState, 'widgetList', arrayPush(externalState.widgetList, widget))
-    updateState(externalState)
+    updateStateDelayed(externalState)
   }
   const updateExternalData = (nextExternalState) => {
     externalState = objectMerge(externalState, nextExternalState)
-    updateState(externalState)
+    updateStateDelayed(externalState)
   }
 
   // initial render

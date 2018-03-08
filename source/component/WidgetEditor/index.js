@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { injectGlobal } from 'styled-components'
-import { arrayFindSet } from 'dr-js/module/common/immutable/ImmutableOperation'
+import { arrayFindSet } from 'dr-js/module/common/immutable/Array'
 
-import { immutableTransformCache } from 'source/__dev__'
+import { transformCache } from 'source/__dev__'
 import { RulerLayer } from 'source/component/RulerLayer'
 import { ScrollLayer, ScrollLayerBounded, ScrollLayerStatic } from 'source/component/ScrollLayer'
 import { applyWidgetEditorStateProcessor } from 'source/state/widgetEditor/processor'
@@ -50,10 +50,10 @@ class WidgetEditor extends PureComponent {
     this.setEditorLayerElement = (element) => mutateDataUpdate(this.elementRefData, 'elementEditorLayer', element)
 
     // indicator data
-    this.getHoverWidgetCached = immutableTransformCache((widgetList, hoverWidgetId) => {
+    this.getHoverWidgetCached = transformCache((widgetList, hoverWidgetId) => {
       return (hoverWidgetId && widgetList.find(({ id }) => id === hoverWidgetId)) || null
     })
-    const getSingleSelectWidgetCached = immutableTransformCache((widgetList, singleSelectWidgetId) => {
+    const getSingleSelectWidgetCached = transformCache((widgetList, singleSelectWidgetId) => {
       return widgetList.find(({ id }) => id === singleSelectWidgetId) || null
     })
     this.getSingleSelectPreviewWidgetCached = (widgetList, selectIdList, previewWidgetDataMap) => {
@@ -166,7 +166,7 @@ WidgetEditorSnapshot.propTypes = {
 }
 
 const DEFAULT_MERGED_EDIT_BOUNDING_WIDGET = { center: { x: 0, y: 0 }, size: { x: 400, y: 600 } }
-const getMergedEditBoundingWidgetCached = immutableTransformCache((widgetList) => widgetList.length
+const getMergedEditBoundingWidgetCached = transformCache((widgetList) => widgetList.length
   ? getMergedEditBoundingWidget(widgetList)
   : DEFAULT_MERGED_EDIT_BOUNDING_WIDGET
 )

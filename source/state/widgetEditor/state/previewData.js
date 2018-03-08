@@ -1,4 +1,4 @@
-import { objectSet } from 'dr-js/module/common/immutable/ImmutableOperation'
+import { objectSet } from 'dr-js/module/common/immutable/Object'
 import { add } from 'dr-js/module/common/geometry/D2/Vector'
 import { fromWidget } from 'dr-js/module/common/geometry/D2/BoundingRect'
 import { fromBoundingRect } from 'dr-js/module/common/geometry/D2/Widget'

@@ -1,4 +1,4 @@
-import { objectSet, objectDelete } from 'dr-js/module/common/immutable/ImmutableOperation'
+import { objectSet, objectDelete } from 'dr-js/module/common/immutable/Object'
 
 import { isHoverTargetApplicable } from '../type/hover'
 import { BIND_CANCEL_HANDLE_TYPE_SET, BIND_REPLACE_HANDLE_TYPE_SET } from '../type/bind'

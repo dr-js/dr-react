@@ -1,7 +1,8 @@
-import { objectMerge, objectSet, arrayPush, arrayDelete, arrayMatchPush, arrayMatchDelete } from 'dr-js/module/common/immutable/ImmutableOperation'
+import { objectMerge, objectSet } from 'dr-js/module/common/immutable/Object'
+import { arrayPush, arrayDelete, arrayMatchPush, arrayMatchDelete } from 'dr-js/module/common/immutable/Array'
 import { fromPoint, fromWidgetList, isIntersect } from 'dr-js/module/common/geometry/D2/BoundingRect'
 
-import { immutableTransformCache } from 'source/__dev__'
+import { transformCache } from 'source/__dev__'
 import { SELECT_MODE_TYPE } from 'source/state/event'
 
 const reducerSelectIdList = (state, editorState, getIsSelect) => {
@@ -57,7 +58,7 @@ const reducerSelectBoundingRect = (state, editorState) => {
   const { widgetList } = editorState.externalData
   return objectSet(state, 'selectBoundingRect', calcSelectBoundingRectCached(widgetList, state.selectIdList))
 }
-const calcSelectBoundingRectCached = immutableTransformCache((widgetList, selectIdList) => selectIdList.length
+const calcSelectBoundingRectCached = transformCache((widgetList, selectIdList) => selectIdList.length
   ? fromWidgetList(widgetList.filter(({ id }) => selectIdList.includes(id)))
   : null
 )

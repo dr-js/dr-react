@@ -1,4 +1,4 @@
-import { objectMerge } from 'dr-js/module/common/immutable/ImmutableOperation'
+import { objectMerge } from 'dr-js/module/common/immutable/Object'
 
 const ZOOM_VALUE_LIST = [ 0.02, 0.05, 0.10, 0.15, 0.20, 0.30, 0.50, 0.75, 1.00, 1.50, 2.00, 3.00, 4.00, 5.00, 10.00, 20.00, 50.00 ]
 

@@ -1,4 +1,4 @@
-import { objectMerge, objectSet } from 'dr-js/module/common/immutable/ImmutableOperation'
+import { objectMerge, objectSet } from 'dr-js/module/common/immutable/Object'
 import { getRotateDelta, sub, scale } from 'dr-js/module/common/geometry/D2/Vector'
 import { getCenter } from 'dr-js/module/common/geometry/D2/BoundingRect'
 

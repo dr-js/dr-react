@@ -2,10 +2,9 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { objectMerge } from 'dr-js/module/common/immutable/ImmutableOperation'
-import { debounceByAnimationFrame } from 'dr-js/module/browser/DOM'
+import { objectMerge } from 'dr-js/module/common/immutable/Object'
 
-import { immutableTransformCache } from 'source/__dev__'
+import { transformCache, delayArgvQueueByAnimationFrame } from 'source/__dev__'
 import { color } from 'source/style/color'
 import { ZOOM_IN, ZOOM_OUT, reduceZoomAt } from 'source/state/editorZoom'
 
@@ -81,12 +80,12 @@ class ScrollLayer extends PureComponent {
       nextViewport !== viewport && onChange({ viewport: nextViewport })
     }
 
-    this.updateZoomAtDebounced = debounceByAnimationFrame((argvQueue) => {
+    this.updateZoomAtDelayed = delayArgvQueueByAnimationFrame((argvQueue) => {
       const [ clientX, clientY, isReduceZoomValue ] = argvQueue[ argvQueue.length - 1 ]
       const { zoom, viewport, centerOffset, onChange } = this.props
       onChange(reduceZoomAt({ zoom, viewport, centerOffset }, { clientX, clientY }, isReduceZoomValue))
     })
-    this.updateCenterOffsetDebounced = debounceByAnimationFrame((argvQueue) => {
+    this.updateCenterOffsetDelayed = delayArgvQueueByAnimationFrame((argvQueue) => {
       const [ deltaX, deltaY ] = argvQueue.reduce((o, [ deltaX, deltaY ]) => {
         o[ 0 ] += deltaX
         o[ 1 ] += deltaY
@@ -102,10 +101,10 @@ class ScrollLayer extends PureComponent {
         const { deltaX, deltaY, shiftKey, ctrlKey, metaKey, clientX, clientY } = event
         if (deltaY && (ctrlKey || metaKey)) { // zoom
           const isReduceZoomValue = deltaY < 0 ? ZOOM_IN : ZOOM_OUT
-          this.updateZoomAtDebounced(clientX, clientY, isReduceZoomValue)
+          this.updateZoomAtDelayed(clientX, clientY, isReduceZoomValue)
         } else { // scroll
-          if (shiftKey) this.updateCenterOffsetDebounced(deltaY, deltaX)
-          else this.updateCenterOffsetDebounced(deltaX, deltaY)
+          if (shiftKey) this.updateCenterOffsetDelayed(deltaY, deltaX)
+          else this.updateCenterOffsetDelayed(deltaX, deltaY)
         }
         event.preventDefault()
         event.stopPropagation()
@@ -118,7 +117,7 @@ class ScrollLayer extends PureComponent {
         onDragDisable: () => { this.setState({ cursorClassName: '' }) },
         onDragBegin: () => { this.setState({ cursorClassName: 'cursor-grabbing' }) },
         onDragEnd: () => { this.setState({ cursorClassName: 'cursor-grab' }) },
-        onDragUpdate: this.updateCenterOffsetDebounced
+        onDragUpdate: this.updateCenterOffsetDelayed
       })
     }
 
@@ -179,11 +178,11 @@ class ScrollLayerBounded extends ScrollLayer {
         isSkipKeySpaceDown: true,
         onDragBegin: () => { this.setState({ cursorClassName: 'cursor-grabbing' }) },
         onDragEnd: () => { this.setState({ cursorClassName: 'cursor-grab' }) },
-        onDragUpdate: this.updateCenterOffsetDebounced
+        onDragUpdate: this.updateCenterOffsetDelayed
       })
     }
 
-    this.getScrollContextStyleCached = immutableTransformCache(getScrollContextStyle)
+    this.getScrollContextStyleCached = transformCache(getScrollContextStyle)
 
     this.setScrollElementRef = (ref) => (this.scrollElement = ref)
     this.scrollElement = null

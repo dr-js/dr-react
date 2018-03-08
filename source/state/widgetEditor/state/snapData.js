@@ -1,8 +1,8 @@
-import { objectSet } from 'dr-js/module/common/immutable/ImmutableOperation'
+import { objectSet } from 'dr-js/module/common/immutable/Object'
 import { fromWidget } from 'dr-js/module/common/geometry/D2/BoundingRect'
 import { fromBoundingRect } from 'dr-js/module/common/geometry/D2/Widget'
 
-import { immutableTransformCache } from 'source/__dev__'
+import { transformCache } from 'source/__dev__'
 import { SNAP_ENABLED_HANDEL_TYPE_SET } from 'source/widget/type/snap'
 import { calcWidgetResizeHandleDelta } from 'source/widget/math/calc'
 import { INITIAL_SNAP_INFO, calcSnapDataListOfWidgetList, calcSnapInfo, formatSnapBoundingRect } from 'source/widget/math/snap'
@@ -52,7 +52,7 @@ const calcSnapData = (state, editorState) => {
     ]
   }
 }
-const calcSnapDataListCached = immutableTransformCache((widgetList, selectIdList, bindSelectIdList) => { // calc the value to snap to
+const calcSnapDataListCached = transformCache((widgetList, selectIdList, bindSelectIdList) => { // calc the value to snap to
   const excludeIdSet = new Set([ ...selectIdList, ...bindSelectIdList ])
   return calcSnapDataListOfWidgetList(widgetList.filter((widget) => !excludeIdSet.has(widget.id)))
 })
