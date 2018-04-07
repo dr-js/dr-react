@@ -116,8 +116,8 @@ const applyWidgetEditorStateProcessor = ({ stateStore: { getState, setState }, e
     const state = getState()
 
     if (
-      state.externalData.isPause ||
-      (state.externalData.isLock && pointerEventType !== POINTER_EVENT_TYPE.TAP) // lock pan // TODO: check working // Should use isPause?
+      state.externalData.isLock ||
+      (state.externalData.isLockEvent && pointerEventType !== POINTER_EVENT_TYPE.TAP) // lock pan // TODO: check working
     ) return
 
     const eventTargetData = getEventTargetData(state, elementRefData, eventState)

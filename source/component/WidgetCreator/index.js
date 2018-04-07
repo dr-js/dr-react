@@ -33,6 +33,7 @@ class WidgetCreator extends PureComponent {
       subscribe: PropTypes.func.isRequired
     }).isRequired,
     getWidgetLayerBoundingClientRect: PropTypes.func.isRequired,
+    updateExternalData: PropTypes.func.isRequired,
     appendExternalWidgetList: PropTypes.func.isRequired
   }
 
@@ -52,7 +53,9 @@ class WidgetCreator extends PureComponent {
     this.sampleLayerFuncPack = {
       setSelectSampleShape: (targetSampleShape) => this.props.stateStore.setState(reducerMap[ 'reducer:select-data:set-sample-shape' ](this.props.stateStore.getState(), { targetSampleShape })),
       setSampleLayerElement: (element) => mutateDataUpdate(this.elementRefData, 'elementSampleLayer', element),
-      setSampleElement: (id, element) => mutateDataUpdate(this.elementRefData.elementSampleMap, id, element)
+      setSampleElement: (id, element) => mutateDataUpdate(this.elementRefData.elementSampleMap, id, element),
+      doToggleMode: () => { window.alert('TODO: code') }, // TODO: code
+      doToggleLock: () => this.props.updateExternalData({ isLock: !this.state.externalData.isLock })
     }
     this.setIndicatorLayerElement = (element) => mutateDataUpdate(this.elementRefData, 'elementIndicatorLayer', element)
 

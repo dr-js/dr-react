@@ -52,7 +52,9 @@ class SampleLayer extends PureComponent {
     funcPack: PropTypes.shape({
       setSelectSampleShape: PropTypes.func.isRequired,
       setSampleLayerElement: PropTypes.func.isRequired,
-      setSampleElement: PropTypes.func.isRequired
+      setSampleElement: PropTypes.func.isRequired,
+      doToggleMode: PropTypes.func.isRequired,
+      doToggleLock: PropTypes.func.isRequired
     }).isRequired
   }
 
@@ -61,7 +63,7 @@ class SampleLayer extends PureComponent {
 
     const clearSelect = () => !this.props.isLock && this.props.funcPack.setSelectSampleShape(null)
 
-    this.renderSampleMap = Object.keys(WIDGET_MINI_SAMPLE_MAP).reduce((o, shape) => {
+    this.sampleMap = Object.keys(WIDGET_MINI_SAMPLE_MAP).reduce((o, shape) => {
       const ref = (ref) => this.props.funcPack.setSampleElement(shape, ref)
       const setSelect = () => !this.props.isLock && this.props.funcPack.setSelectSampleShape(shape)
       const sampleWidget = WIDGET_MINI_SAMPLE_MAP[ shape ]
@@ -78,13 +80,15 @@ class SampleLayer extends PureComponent {
   }
 
   render () {
-    const { isLock, selectSampleShape, className, funcPack: { setSampleLayerElement } } = this.props
+    const { isLock, selectSampleShape, className, funcPack: { setSampleLayerElement, doToggleMode, doToggleLock } } = this.props
 
     return <SampleLayerDiv className={className || ''}>
       <WidgetSamplePanelDiv innerRef={setSampleLayerElement} className={isLock ? 'lock' : ''}>
-        {this.renderSampleMap[ WIDGET_SHAPE_TYPE.RECT ](selectSampleShape, isLock)}
-        {this.renderSampleMap[ WIDGET_SHAPE_TYPE.LINE ](selectSampleShape, isLock)}
-        {this.renderSampleMap[ WIDGET_SHAPE_TYPE.ELBOW ](selectSampleShape, isLock)}
+        <WidgetSampleWrapperDiv className="lock" onClick={doToggleMode}>{'Mode'}</WidgetSampleWrapperDiv>
+        <WidgetSampleWrapperDiv className={isLock ? 'select' : ''} onClick={doToggleLock}>{isLock ? 'Lock' : 'UnLock'}</WidgetSampleWrapperDiv>
+        {this.sampleMap[ WIDGET_SHAPE_TYPE.RECT ](selectSampleShape, isLock)}
+        {this.sampleMap[ WIDGET_SHAPE_TYPE.LINE ](selectSampleShape, isLock)}
+        {this.sampleMap[ WIDGET_SHAPE_TYPE.ELBOW ](selectSampleShape, isLock)}
       </WidgetSamplePanelDiv>
     </SampleLayerDiv>
   }

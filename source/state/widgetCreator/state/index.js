@@ -4,7 +4,6 @@ import { initialState as initialStateSelectData, reducerMap as reducerMapSelectD
 import { initialState as initialStatePreviewData, reducerMap as reducerMapPreviewData } from './previewData'
 
 const initialStateExternalData = {
-  isPause: false,
   isLock: false,
 
   zoom: 1,

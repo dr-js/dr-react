@@ -35,7 +35,6 @@ class WidgetEditor extends PureComponent {
 
     // external data
     const setExternalState = (key, value) => this.props.updateExternalData({ [ key ]: value })
-    this.mergeExternalState = (state) => this.props.updateExternalData(state)
     this.doResetCenterOffset = () => setExternalState('centerOffset', DEFAULT_CENTER_OFFSET)
 
     // element data
@@ -61,6 +60,14 @@ class WidgetEditor extends PureComponent {
       if (!singleSelectWidgetId) return null
       const singleSelectPreviewWidgetData = previewWidgetDataMap[ singleSelectWidgetId ]
       return (singleSelectPreviewWidgetData && singleSelectPreviewWidgetData.previewWidget) || getSingleSelectWidgetCached(widgetList, singleSelectWidgetId)
+    }
+
+    this.scrollLayerProps = {
+      setRef: this.setEditorLayerElement,
+      className: CSS_EVENT_DEFAULT_FIX,
+      onChange: (state) => this.props.updateExternalData(state),
+      onDragEnable: () => setExternalState('isLockEvent', true),
+      onDragDisable: () => setExternalState('isLockEvent', false)
     }
 
     // funcPack
@@ -122,7 +129,7 @@ class WidgetEditor extends PureComponent {
     __DEV__ && console.log(`[RENDER] WidgetEditor`)
 
     return <RulerLayer {...{ zoom, valueX: centerOffset.x, valueY: centerOffset.y, onClick: this.doResetCenterOffset, className: CSS_EVENT_DEFAULT_FIX }}>
-      <ScrollLayer {...{ setRef: this.setEditorLayerElement, zoom, viewport, centerOffset, allowScroll, onChange: this.mergeExternalState, className: CSS_EVENT_DEFAULT_FIX }}>
+      <ScrollLayer {...{ zoom, viewport, centerOffset, allowScroll, ...this.scrollLayerProps }}>
         <WidgetLayer {...{ zoom, isLock, widgetList, previewWidgetDataMap, funcPack: this.widgetLayerFuncPack }} />
         {hasIndicator && <IndicatorLayer {...{
           zoom, rangeBoundingRect, handleType, snapDataList, previewBoundingRect, hoverWidget, singleSelectPreviewWidget, funcPack: this.indicatorLayerFuncPack
@@ -146,8 +153,7 @@ class WidgetEditorViewer extends WidgetEditor {
       viewport,
       centerOffset,
       allowScroll: !rangeBoundingRect && !lockWidgetId,
-      onChange: this.mergeExternalState,
-      className: CSS_EVENT_DEFAULT_FIX
+      ...this.scrollLayerProps
     }}>
       <WidgetLayer {...{ zoom, isLock, widgetList, funcPack: this.widgetLayerFuncPack }} />
     </ScrollLayerBounded>

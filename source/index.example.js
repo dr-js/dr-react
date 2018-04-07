@@ -12,14 +12,19 @@ import { initialState as initialWidgetCreatorState, reducerMap as reducerWidgetC
 import { initialState as initialWidgetEditorState, reducerMap as reducerWidgetEditorMap } from 'source/state/widgetEditor/state'
 import { duplicateWidget } from 'source/widget/data/duplicate'
 
-const mapWidgetCreatorStateCached = transformCache((isPause, isLock, zoom, centerOffset, viewport) => ({
-  isPause, isLock, zoom, centerOffset, viewport
+const mapWidgetCreatorStateCached = transformCache((isLock, zoom, centerOffset, viewport) => ({
+  isLock, zoom, centerOffset, viewport
 }))
-const getWidgetCreatorStateCached = ({ isPause, isLock, zoom, centerOffset, viewport }) => mapWidgetCreatorStateCached(isPause, isLock, zoom, centerOffset, viewport)
-const mapWidgetEditorStateCached = transformCache((isPause, isLock, widgetList, lockWidgetId, zoom, centerOffset, viewport) => ({
-  isPause, isLock, widgetList, lockWidgetId, zoom, centerOffset, viewport
+const getWidgetCreatorStateCached = ({
+  isLock, zoom, centerOffset, viewport
+}) => mapWidgetCreatorStateCached(isLock, zoom, centerOffset, viewport)
+
+const mapWidgetEditorStateCached = transformCache((isLock, isLockEvent, widgetList, lockWidgetId, zoom, centerOffset, viewport) => ({
+  isLock, isLockEvent, widgetList, lockWidgetId, zoom, centerOffset, viewport
 }))
-const getWidgetEditorStateCached = ({ isPause, isLock, widgetList, lockWidgetId, zoom, centerOffset, viewport }) => mapWidgetEditorStateCached(isPause, isLock, widgetList, lockWidgetId, zoom, centerOffset, viewport)
+const getWidgetEditorStateCached = ({
+  isLock, isLockEvent, widgetList, lockWidgetId, zoom, centerOffset, viewport
+}) => mapWidgetEditorStateCached(isLock, isLockEvent, widgetList, lockWidgetId, zoom, centerOffset, viewport)
 
 const initReactRender = ({ rootElement, initialState: externalState }) => {
   const creatorStateStore = createStateStore({ ...initialWidgetCreatorState, externalData: getWidgetCreatorStateCached(externalState) })
@@ -30,7 +35,7 @@ const initReactRender = ({ rootElement, initialState: externalState }) => {
   const setElementWidgetLayer = (element) => { elementWidgetLayer = element }
   const getWidgetLayerBoundingClientRect = () => elementWidgetLayer.getBoundingClientRect()
 
-  // simple store
+  // TODO: simple store, upgrade to Redux
   const getState = () => externalState
   const updateStateDelayed = delayArgvQueueByAnimationFrame((argvQueue) => {
     const [ externalData ] = argvQueue[ argvQueue.length - 1 ]
@@ -53,7 +58,7 @@ const initReactRender = ({ rootElement, initialState: externalState }) => {
   // initial render
   ReactDOM.render(<div style={{ display: 'flex', flexFlow: 'row nowrap', width: '100%', height: '100%' }}>
     <div style={{ position: 'relative', width: '80px', borderRight: '1px solid #d9d9d9' }}>
-      <WidgetCreator {...{ stateStore: creatorStateStore, getWidgetLayerBoundingClientRect, appendExternalWidgetList }} />
+      <WidgetCreator {...{ stateStore: creatorStateStore, getWidgetLayerBoundingClientRect, updateExternalData, appendExternalWidgetList }} />
     </div>
     <div style={{ position: 'relative', flex: 1 }}>
       <WidgetEditor {...{ stateStore: editorStateStore, setElementWidgetLayer, updateExternalData }} />
@@ -68,8 +73,8 @@ const initReactRender = ({ rootElement, initialState: externalState }) => {
 }
 
 const initialState = {
-  isPause: false,
   isLock: false,
+  isLockEvent: false,
 
   widgetList: [],
   lockWidgetId: null, // TODO: check better name or usage

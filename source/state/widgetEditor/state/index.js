@@ -7,8 +7,8 @@ import { initialState as initialStateSnapData, reducerMap as reducerMapSnapData 
 import { initialState as initialStatePreviewData, reducerMap as reducerMapPreviewData } from './previewData'
 
 const initialStateExternalData = {
-  isPause: false,
   isLock: false,
+  isLockEvent: false,
 
   widgetList: [],
   lockWidgetId: null, // TODO: check better name or usage

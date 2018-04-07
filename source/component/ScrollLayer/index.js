@@ -64,6 +64,8 @@ class ScrollLayer extends PureComponent {
     allowScroll: PropTypes.bool,
     setRef: PropTypes.func,
     onChange: PropTypes.func, // set { zoom, centerOffset, viewport }
+    onDragEnable: PropTypes.func,
+    onDragDisable: PropTypes.func,
 
     className: PropTypes.string,
     children: PropTypes.node
@@ -112,9 +114,13 @@ class ScrollLayer extends PureComponent {
       ...createMouseDragEventListenerMap({
         onDragEnable: () => {
           if (!this.props.allowScroll) return CANCEL_MOUSE_DRAG // cancel if currently in selection
+          this.props.onDragEnable()
           this.setState({ cursorClassName: 'cursor-grab' })
         },
-        onDragDisable: () => { this.setState({ cursorClassName: '' }) },
+        onDragDisable: () => {
+          this.props.onDragDisable()
+          this.setState({ cursorClassName: '' })
+        },
         onDragBegin: () => { this.setState({ cursorClassName: 'cursor-grabbing' }) },
         onDragEnd: () => { this.setState({ cursorClassName: 'cursor-grab' }) },
         onDragUpdate: this.updateCenterOffsetDelayed
