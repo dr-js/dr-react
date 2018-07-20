@@ -1,4 +1,4 @@
-import { ListMap } from 'dr-js/module/common/data/ListMap'
+import { createListMap } from 'dr-js/module/common/data/ListMap'
 import { fromWidget } from 'dr-js/module/common/geometry/D2/BoundingRect'
 
 import { SNAP_TYPE, SNAP_TO_SET_MAP } from '../type/snap'
@@ -6,8 +6,8 @@ import { SNAP_TYPE, SNAP_TO_SET_MAP } from '../type/snap'
 const calcSnapDataListOfWidgetList = (widgetList) => {
   const snapBoundingRectList = widgetList.map((widget) => formatSnapBoundingRect(fromWidget(widget)))
 
-  const snapDataListMapX = new ListMap()
-  const snapDataListMapY = new ListMap()
+  const snapDataListMapX = createListMap()
+  const snapDataListMapY = createListMap()
   for (let pairInitIndex = 0, indexMax = snapBoundingRectList.length; pairInitIndex < indexMax; pairInitIndex++) {
     const boundingRect = snapBoundingRectList[ pairInitIndex ]
 

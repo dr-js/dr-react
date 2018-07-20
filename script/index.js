@@ -1,11 +1,11 @@
 import { resolve } from 'path'
 import { execSync } from 'child_process'
 
-import { argvFlag, runMain } from 'dev-dep-tool/library/__utils__'
+import { argvFlag, runMain } from 'dev-dep-tool/library/main'
 import { getLogger } from 'dev-dep-tool/library/logger'
-import { wrapFileProcessor, fileProcessorBabel } from 'dev-dep-tool/library/fileProcessor'
 import { initOutput, packOutput, publishOutput } from 'dev-dep-tool/library/commonOutput'
-import { getUglifyESOption, minifyFileListWithUglifyEs } from 'dev-dep-tool/library/uglify'
+import { wrapFileProcessor, fileProcessorBabel } from 'dev-dep-tool/library/fileProcessor'
+import { getTerserOption, minifyFileListWithTerser } from 'dev-dep-tool/library/minify'
 
 import { binary as formatBinary } from 'dr-js/module/common/format'
 import { getFileList } from 'dr-js/module/node/file/Directory'
@@ -14,7 +14,7 @@ const PATH_ROOT = resolve(__dirname, '..')
 const PATH_OUTPUT = resolve(__dirname, '../output-gitignore')
 const fromRoot = (...args) => resolve(PATH_ROOT, ...args)
 const fromOutput = (...args) => resolve(PATH_OUTPUT, ...args)
-const execOptionRoot = { cwd: fromRoot(), stdio: argvFlag('quiet') ? [ 'ignore', 'ignore' ] : 'inherit', shell: true }
+const execOptionRoot = { cwd: fromRoot(), stdio: argvFlag('quiet') ? [ 'ignore', 'ignore', 'inherit' ] : 'inherit', shell: true }
 
 const buildOutput = async ({ logger: { padLog } }) => {
   padLog(`build module`)
@@ -29,9 +29,9 @@ const processOutput = async ({ packageJSON, logger }) => {
   const processBabel = wrapFileProcessor({ processor: fileProcessorBabel, logger })
 
   padLog(`minify module`)
-  await minifyFileListWithUglifyEs({
+  await minifyFileListWithTerser({
     fileList: (await getFileList(fromOutput('module'))).filter((path) => path.endsWith('.js') && !path.endsWith('.test.js')),
-    option: getUglifyESOption({ isModule: true }),
+    option: getTerserOption({ isModule: true }),
     rootPath: PATH_OUTPUT,
     logger
   })

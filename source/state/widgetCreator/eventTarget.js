@@ -1,5 +1,5 @@
 import { findKeyInMap } from 'source/__utils__/data'
-import { getBranchElementList } from 'source/__utils__/DOM'
+import { getPathElementList } from 'dr-js/module/browser/DOM'
 
 const EVENT_TARGET_TYPE = {
   NULL: 'NULL',
@@ -24,7 +24,7 @@ const getEventTargetData = (state, elementRefData, eventState) => {
   if (elementCreatorLayer === elementTarget || !elementCreatorLayer.contains(elementTarget)) return DEFAULT_EVENT_TARGET_DATA
 
   if (elementSampleLayer.contains(elementTarget)) {
-    const [ possibleSampleElement ] = getBranchElementList(elementSampleLayer, elementTarget)
+    const [ possibleSampleElement ] = getPathElementList(elementSampleLayer, elementTarget)
     const targetSampleShape = findKeyInMap(elementSampleMap, ([ , element ]) => element.contains(possibleSampleElement)) || null
     if (targetSampleShape) return { type: EVENT_TARGET_TYPE.SAMPLE, targetSampleShape }
   }

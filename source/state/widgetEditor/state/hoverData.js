@@ -1,7 +1,7 @@
 import { objectSet } from 'dr-js/module/common/immutable/Object'
+import { getElementAtViewport } from 'dr-js/module/browser/DOM'
 
 import { findKeyInMap } from 'source/__utils__/data'
-import { getElementCenterUnder } from 'source/__utils__/DOM'
 import { HOVER_ENABLED_HANDLE_TYPE_SET } from 'source/widget/type/hover'
 
 const calcHoverWidgetId = (state, editorState, elementRefData, eventState) => {
@@ -13,7 +13,7 @@ const calcHoverWidgetId = (state, editorState, elementRefData, eventState) => {
 
   if (!HOVER_ENABLED_HANDLE_TYPE_SET.has(handleType)) return null // limit hover detect handle
 
-  const possibleWidgetElement = getElementCenterUnder(eventState.point, [ elementIndicatorLayer, ...selectIdList.map((id) => elementWidgetMap[ id ]) ])
+  const possibleWidgetElement = getElementAtViewport(eventState.point, [ elementIndicatorLayer, ...selectIdList.map((id) => elementWidgetMap[ id ]) ])
   return possibleWidgetElement
     ? findKeyInMap(elementWidgetMap, ([ , element ]) => element.contains(possibleWidgetElement))
     : null

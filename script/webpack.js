@@ -1,24 +1,29 @@
-import { resolve as resolvePath } from 'path'
-import { DefinePlugin, HashedModuleIdsPlugin } from 'webpack'
+import { resolve } from 'path'
+import { DefinePlugin } from 'webpack'
 
-import { argvFlag, runMain } from 'dev-dep-tool/library/__utils__'
-import { compileWithWebpack } from 'dev-dep-tool/library/webpack'
+import { argvFlag, runMain } from 'dev-dep-tool/library/main'
 import { getLogger } from 'dev-dep-tool/library/logger'
+import { compileWithWebpack, commonFlag } from 'dev-dep-tool/library/webpack'
 
-const PATH_ROOT = resolvePath(__dirname, '..')
-const fromRoot = (...args) => resolvePath(PATH_ROOT, ...args)
+const PATH_ROOT = resolve(__dirname, '..')
+const fromRoot = (...args) => resolve(PATH_ROOT, ...args)
 
 runMain(async (logger) => {
-  const mode = argvFlag('development', 'production') || 'production'
-  const profileOutput = argvFlag('profile') ? fromRoot('profile-stat-gitignore.json') : null
-  const isWatch = argvFlag('watch')
-  const isProduction = mode === 'production'
+  const { mode, isWatch, isProduction, profileOutput, assetMapOutput } = await commonFlag({ argvFlag, fromRoot, logger })
 
   const babelOption = {
+    configFile: false,
     babelrc: false,
     cacheDirectory: isProduction,
-    presets: [ [ '@babel/env', { targets: { node: 8 }, modules: false } ], [ '@babel/react' ] ],
-    plugins: [ [ 'babel-plugin-styled-components' ], [ '@babel/proposal-class-properties' ], [ '@babel/proposal-object-rest-spread', { useBuiltIns: true } ] ]
+    presets: [
+      [ '@babel/env', { targets: { node: '8.8' }, modules: false } ],
+      [ '@babel/react' ]
+    ],
+    plugins: [
+      [ 'babel-plugin-styled-components' ],
+      [ '@babel/proposal-class-properties' ],
+      isProduction && [ '@babel/plugin-proposal-object-rest-spread', { loose: true, useBuiltIns: true } ] // NOTE: for Edge(17.17134) support check: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax#Spread_in_object_literals
+    ].filter(Boolean)
   }
 
   const config = {
@@ -27,13 +32,11 @@ runMain(async (logger) => {
     output: { path: fromRoot('example/source-gitignore/'), filename: '[name].js', library: 'DrReact', libraryTarget: 'umd' },
     entry: { 'index': 'source/index.example' },
     resolve: { alias: { source: fromRoot('source') } },
-    module: { rules: [ { test: /\.js$/, exclude: /node_modules/, use: [ { loader: 'babel-loader', options: babelOption } ] } ] },
-    plugins: [
-      new DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(mode), '__DEV__': !isProduction }),
-      new HashedModuleIdsPlugin()
-    ]
+    module: { rules: [ { test: /\.js$/, use: [ { loader: 'babel-loader', options: babelOption } ] } ] },
+    plugins: [ new DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(mode), '__DEV__': !isProduction }) ],
+    optimization: { minimize: false }
   }
 
   logger.padLog(`compile with webpack mode: ${mode}, isWatch: ${Boolean(isWatch)}`)
-  await compileWithWebpack({ config, isWatch, profileOutput, logger })
+  await compileWithWebpack({ config, isWatch, profileOutput, assetMapOutput, logger })
 }, getLogger(`webpack`))
