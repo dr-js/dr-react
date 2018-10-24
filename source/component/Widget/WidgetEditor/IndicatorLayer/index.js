@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { STYLE_DISPLAY_NONE, getBoundingRectTransformStyle } from 'source/component/Widget/DOM'
+import { STYLE_DISPLAY_NONE, getBoundingRectTransformStyle } from 'source/component/Widget/Widget/DOM'
 
 import { HoverTargetLayer } from './HoverTargetLayer'
 import { HandleLayer } from './HandleLayer'

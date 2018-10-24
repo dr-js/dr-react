@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { transformCache } from 'source/__dev__'
-import { renderWidget } from 'source/component/Widget'
-import { STYLE_DISPLAY_NONE } from 'source/component/Widget/DOM'
+import { renderWidget } from 'source/component/Widget/Widget'
+import { STYLE_DISPLAY_NONE } from 'source/component/Widget/Widget/DOM'
 
 const IndicatorLayerDiv = styled.div`
   pointer-events: auto;

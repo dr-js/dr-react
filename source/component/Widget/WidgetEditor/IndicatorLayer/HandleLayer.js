@@ -4,20 +4,20 @@ import styled from 'styled-components'
 
 import { transformCache } from 'source/__dev__'
 import { color } from 'source/style/color'
-import { WIDGET_SHAPE_TYPE } from 'source/widget/type/shape'
+import { WIDGET_SHAPE_TYPE } from 'source/state/widget/type/shape'
 import {
   HANDLE_TYPE,
   HANDLE_TYPE_LIST_MAP,
   getElbowAnchorHandleType
-} from 'source/widget/type/handle'
-import { calcElbowAnchorAdd, calcElbowAnchorDelete } from 'source/widget/math/elbow'
+} from 'source/state/widget/type/handle'
+import { calcElbowAnchorAdd, calcElbowAnchorDelete } from 'source/state/widget/math/elbow'
 import {
   STYLE_DISPLAY_NONE,
   getBoundingRectTransformStyle,
   getRectTransformStyle,
   getElbowAnchorTransformStyle,
   getElbowAnchorEndTransformStyle
-} from 'source/component/Widget/DOM'
+} from 'source/component/Widget/Widget/DOM'
 
 const HANDLE_OFFSET = '24px'
 const HANDLE_MASK_SIZE = '16px'

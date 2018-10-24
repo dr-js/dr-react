@@ -1,4 +1,4 @@
-import { WIDGET_SHAPE_TYPE } from 'source/widget/type/shape'
+import { WIDGET_SHAPE_TYPE } from 'source/state/widget/type/shape'
 
 const getSampleList = (SIZE) => {
   const WIDTH = SIZE

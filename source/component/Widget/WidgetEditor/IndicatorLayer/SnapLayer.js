@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { color } from 'source/style/color'
-import { SNAP_TYPE } from 'source/widget/type/snap'
-import { formatSnapBoundingRect } from 'source/widget/math/snap'
+import { SNAP_TYPE } from 'source/state/widget/type/snap'
+import { formatSnapBoundingRect } from 'source/state/widget/math/snap'
 
 const SnapLayerDiv = styled.div`
   pointer-events: none;

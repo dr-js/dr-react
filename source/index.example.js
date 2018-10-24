@@ -5,14 +5,14 @@ import { objectMerge, objectSet } from 'dr-js/module/common/immutable/Object'
 import { arrayPush } from 'dr-js/module/common/immutable/Array'
 import { createStateStore } from 'dr-js/module/common/immutable/StateStore'
 
-import { transformCache, delayArgvQueueByAnimationFrame } from 'source/__dev__'
+import { WidgetCreator } from 'source/component/Widget/WidgetCreator'
+import { WidgetEditor } from 'source/component/Widget/WidgetEditor'
 
-// TODO: move form `source/component/` to directory `WidgetComponent/`
-import { WidgetCreator } from 'source/component/WidgetCreator'
-import { WidgetEditor } from 'source/component/WidgetEditor'
 import { initialState as initialWidgetCreatorState, reducerMap as reducerWidgetCreatorMap } from 'source/state/widgetCreator/state'
 import { initialState as initialWidgetEditorState, reducerMap as reducerWidgetEditorMap } from 'source/state/widgetEditor/state'
-import { duplicateWidget } from 'source/widget/data/duplicate'
+import { duplicateWidget } from 'source/state/widget/data/duplicate'
+
+import { transformCache, delayArgvQueueByAnimationFrame } from 'source/__dev__'
 
 const mapWidgetCreatorStateCached = transformCache((isLock, zoom, centerOffset, viewport) => ({
   isLock, zoom, centerOffset, viewport

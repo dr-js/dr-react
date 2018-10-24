@@ -16,9 +16,7 @@ A collection of strange functions, with React
 [//]: # (NON_PACKAGE_CONTENT)
 
 - 📁 [source/](source/)
-  - main source code, in output package will be:
-    - `dr-react/library`: for direct use, use `require() / exports.*=` and has `Dr.browser.js`
-    - `dr-react/module`: for re-pack, keep `import / export` and readability
+  - main source code, in output package will be: `dr-react/module` (for re-pack, keep `import / export` and readability)
 - 📁 [example/](example/)
   - some example (unsorted tests)
 - 📄 [SPEC.md](SPEC.md)

@@ -1,10 +1,10 @@
 import { objectSet } from 'dr-js/module/common/immutable/Object'
 import { fromPoint as widgetFromPoint, fromLine as widgetFromLine } from 'dr-js/module/common/geometry/D2/Widget'
 
-import { WIDGET_SHAPE_TYPE } from 'source/widget/type/shape'
-import { toEditorSpacePoint } from 'source/widget/math/base'
-import { fromPoint as widgetElbowFromPoint } from 'source/widget/math/elbow'
-import { WIDGET_SAMPLE_MAP } from 'source/widget/data/sample'
+import { WIDGET_SHAPE_TYPE } from 'source/state/widget/type/shape'
+import { toEditorSpacePoint } from 'source/state/widget/math/base'
+import { fromPoint as widgetElbowFromPoint } from 'source/state/widget/math/elbow'
+import { WIDGET_SAMPLE_MAP } from 'source/state/widget/data/sample'
 
 const calcWidgetFromDataAndPoint = (data, pointFrom, pointTo) => {
   switch (data.shape) {

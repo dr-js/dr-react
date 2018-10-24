@@ -17,11 +17,11 @@ const fromOutput = (...args) => resolve(PATH_OUTPUT, ...args)
 const execOptionRoot = { cwd: fromRoot(), stdio: argvFlag('quiet') ? [ 'ignore', 'ignore', 'inherit' ] : 'inherit', shell: true }
 
 const buildOutput = async ({ logger: { padLog } }) => {
-  padLog(`build module`)
-  execSync('npm run build-module', execOptionRoot)
-
   padLog('generate export info')
   execSync(`npm run script-generate-spec`, execOptionRoot)
+
+  padLog(`build module`)
+  execSync('npm run build-module', execOptionRoot)
 }
 
 const processOutput = async ({ packageJSON, logger }) => {

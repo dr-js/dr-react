@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { transformCache } from 'source/__dev__'
-import { renderWidget } from 'source/component/Widget'
+import { renderWidget } from 'source/component/Widget/Widget'
 
 const WidgetLayerDiv = styled.div`
   z-index: 0; /* z-context-editor */

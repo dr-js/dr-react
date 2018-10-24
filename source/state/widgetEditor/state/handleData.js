@@ -2,8 +2,8 @@ import { objectMerge, objectSet } from 'dr-js/module/common/immutable/Object'
 import { getRotateDelta, sub, scale } from 'dr-js/module/common/geometry/D2/Vector'
 import { getCenter } from 'dr-js/module/common/geometry/D2/BoundingRect'
 
-import { HANDLE_TYPE } from 'source/widget/type/handle'
-import { toClientSpacePoint } from 'source/widget/math/base'
+import { HANDLE_TYPE } from 'source/state/widget/type/handle'
+import { toClientSpacePoint } from 'source/state/widget/math/base'
 
 const calcRotateDelta = (zoom, elementWidgetLayer, selectBoundingRect, pointStart, point) => {
   const clientCenter = toClientSpacePoint(getCenter(selectBoundingRect), elementWidgetLayer.getBoundingClientRect(), zoom)

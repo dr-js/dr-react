@@ -1,7 +1,7 @@
 import { createElement } from 'react'
 
-import { WidgetRect, WidgetLine, WidgetElbow } from 'source/component/Widget'
-import { WIDGET_SHAPE_TYPE } from 'source/widget/type/shape'
+import { WidgetRect, WidgetLine, WidgetElbow } from 'source/component/Widget/Widget'
+import { WIDGET_SHAPE_TYPE } from 'source/state/widget/type/shape'
 
 const SAMPLE_MAP = {
   [ WIDGET_SHAPE_TYPE.RECT ]: WidgetRect,

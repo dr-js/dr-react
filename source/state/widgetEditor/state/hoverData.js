@@ -1,6 +1,6 @@
 import { objectSet, objectFindKey } from 'dr-js/module/common/immutable/Object'
 import { getElementAtViewport } from 'dr-js/module/browser/DOM'
-import { HOVER_ENABLED_HANDLE_TYPE_SET } from 'source/widget/type/hover'
+import { HOVER_ENABLED_HANDLE_TYPE_SET } from 'source/state/widget/type/hover'
 
 const calcHoverWidgetId = (state, editorState, elementRefData, eventState) => {
   const {

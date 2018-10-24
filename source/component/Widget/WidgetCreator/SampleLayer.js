@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { WIDGET_SHAPE_TYPE } from 'source/widget/type/shape'
-import { WIDGET_MINI_SAMPLE_MAP } from 'source/widget/data/sample'
+import { WIDGET_SHAPE_TYPE } from 'source/state/widget/type/shape'
+import { WIDGET_MINI_SAMPLE_MAP } from 'source/state/widget/data/sample'
 
 import { renderSample } from './Sample'
 

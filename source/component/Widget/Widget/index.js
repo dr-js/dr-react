@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { color } from 'source/style/color'
-import { WIDGET_SHAPE_TYPE } from 'source/widget/type/shape'
+import { WIDGET_SHAPE_TYPE } from 'source/state/widget/type/shape'
 
 import {
   getRectTransformStyle,

@@ -17,34 +17,66 @@
   - `CANCEL_MOUSE_DRAG`, `createMouseDragEventListenerMap`, `getScrollContextStyle`
 + 📄 [source/component/ScrollLayer/index.js](source/component/ScrollLayer/index.js)
   - `ScrollLayer`, `ScrollLayerBounded`, `ScrollLayerStatic`
-+ 📄 [source/component/Widget/DOM.js](source/component/Widget/DOM.js)
++ 📄 [source/component/Widget/Widget/DOM.js](source/component/Widget/Widget/DOM.js)
   - `STYLE_DISPLAY_NONE`, `getBoundingRectTransformStyle`, `getElbowAnchorEndTransformStyle`, `getElbowAnchorTransformStyle`, `getRectTransformStyle`
-+ 📄 [source/component/Widget/index.js](source/component/Widget/index.js)
++ 📄 [source/component/Widget/Widget/index.js](source/component/Widget/Widget/index.js)
   - `WidgetElbow`, `WidgetLine`, `WidgetRect`, `renderWidget`
-+ 📄 [source/component/WidgetCreator/IndicatorLayer.js](source/component/WidgetCreator/IndicatorLayer.js)
++ 📄 [source/component/Widget/WidgetCreator/IndicatorLayer.js](source/component/Widget/WidgetCreator/IndicatorLayer.js)
   - `IndicatorLayer`
-+ 📄 [source/component/WidgetCreator/Sample.js](source/component/WidgetCreator/Sample.js)
++ 📄 [source/component/Widget/WidgetCreator/Sample.js](source/component/Widget/WidgetCreator/Sample.js)
   - `renderSample`
-+ 📄 [source/component/WidgetCreator/SampleLayer.js](source/component/WidgetCreator/SampleLayer.js)
++ 📄 [source/component/Widget/WidgetCreator/SampleLayer.js](source/component/Widget/WidgetCreator/SampleLayer.js)
   - `SampleLayer`
-+ 📄 [source/component/WidgetCreator/index.js](source/component/WidgetCreator/index.js)
++ 📄 [source/component/Widget/WidgetCreator/index.js](source/component/Widget/WidgetCreator/index.js)
   - `WidgetCreator`
-+ 📄 [source/component/WidgetEditor/WidgetLayer.js](source/component/WidgetEditor/WidgetLayer.js)
++ 📄 [source/component/Widget/WidgetEditor/WidgetLayer.js](source/component/Widget/WidgetEditor/WidgetLayer.js)
   - `WidgetLayer`, `WidgetLayerSnapshot`
-+ 📄 [source/component/WidgetEditor/index.js](source/component/WidgetEditor/index.js)
++ 📄 [source/component/Widget/WidgetEditor/index.js](source/component/Widget/WidgetEditor/index.js)
   - `WidgetEditor`, `WidgetEditorSnapshot`, `WidgetEditorViewer`
-+ 📄 [source/component/WidgetEditor/IndicatorLayer/HandleLayer.js](source/component/WidgetEditor/IndicatorLayer/HandleLayer.js)
++ 📄 [source/component/Widget/WidgetEditor/IndicatorLayer/HandleLayer.js](source/component/Widget/WidgetEditor/IndicatorLayer/HandleLayer.js)
   - `HandleLayer`
-+ 📄 [source/component/WidgetEditor/IndicatorLayer/HoverTargetLayer.js](source/component/WidgetEditor/IndicatorLayer/HoverTargetLayer.js)
++ 📄 [source/component/Widget/WidgetEditor/IndicatorLayer/HoverTargetLayer.js](source/component/Widget/WidgetEditor/IndicatorLayer/HoverTargetLayer.js)
   - `HoverTargetLayer`
-+ 📄 [source/component/WidgetEditor/IndicatorLayer/SnapLayer.js](source/component/WidgetEditor/IndicatorLayer/SnapLayer.js)
++ 📄 [source/component/Widget/WidgetEditor/IndicatorLayer/SnapLayer.js](source/component/Widget/WidgetEditor/IndicatorLayer/SnapLayer.js)
   - `SnapLayer`
-+ 📄 [source/component/WidgetEditor/IndicatorLayer/index.js](source/component/WidgetEditor/IndicatorLayer/index.js)
++ 📄 [source/component/Widget/WidgetEditor/IndicatorLayer/index.js](source/component/Widget/WidgetEditor/IndicatorLayer/index.js)
   - `IndicatorLayer`
 + 📄 [source/state/editorZoom.js](source/state/editorZoom.js)
   - `ZOOM_IN`, `ZOOM_OUT`, `ZOOM_VALUE_MAX`, `ZOOM_VALUE_MIN`, `reduceZoomAt`
 + 📄 [source/state/event.js](source/state/event.js)
   - `POINTER_EVENT_TYPE`, `SELECT_MODE_TYPE`, `applyPointerEventListener`
++ 📄 [source/state/widget/data/duplicate.js](source/state/widget/data/duplicate.js)
+  - `duplicateWidget`, `duplicateWidgetList`
++ 📄 [source/state/widget/data/random.js](source/state/widget/data/random.js)
+  - `randomWidgetList`
++ 📄 [source/state/widget/data/sample.js](source/state/widget/data/sample.js)
+  - `WIDGET_MINI_SAMPLE_LIST`, `WIDGET_MINI_SAMPLE_MAP`, `WIDGET_SAMPLE_LIST`, `WIDGET_SAMPLE_MAP`
++ 📄 [source/state/widget/math/base.js](source/state/widget/math/base.js)
+  - `toClientSpacePoint`, `toEditorSpacePoint`
++ 📄 [source/state/widget/math/bind.js](source/state/widget/math/bind.js)
+  - `addBindByHoverTarget`, `deleteBindByHandleType`
++ 📄 [source/state/widget/math/calc.js](source/state/widget/math/calc.js)
+  - `calcWidgetBindShift`, `calcWidgetFromDataAndPoint`, `calcWidgetResizeHandleDelta`
++ 📄 [source/state/widget/math/elbow.js](source/state/widget/math/elbow.js)
+  - `calcElbowAnchorAdd`, `calcElbowAnchorDelete`, `calcWidgetElbowResizeBind`, `calcWidgetElbowResizeHandleAt`, `calcWidgetElbowResizeHandleDelta`, `fromPoint`, `normalizeElbow`
++ 📄 [source/state/widget/math/hover.js](source/state/widget/math/hover.js)
+  - `HOVER_TARGET_CALC_SHIFT_MAP`, `getWidgetShift`
++ 📄 [source/state/widget/math/line.js](source/state/widget/math/line.js)
+  - `calcWidgetLineResizeHandleAt`, `calcWidgetLineResizeHandleDelta`
++ 📄 [source/state/widget/math/rect.js](source/state/widget/math/rect.js)
+  - `calcDeltaAspectRatioLock`, `calcDeltaLocal`, `calcWidgetRectResizeHandleDelta`
++ 📄 [source/state/widget/math/snap.js](source/state/widget/math/snap.js)
+  - `INITIAL_SNAP_INFO`, `calcSnapDataListOfWidgetList`, `calcSnapInfo`, `formatSnapBoundingRect`
++ 📄 [source/state/widget/type/bind.js](source/state/widget/type/bind.js)
+  - `BIND_CANCEL_HANDLE_TYPE_SET`, `BIND_REPLACE_HANDLE_TYPE_SET`
++ 📄 [source/state/widget/type/handle.js](source/state/widget/type/handle.js)
+  - `ELBOW_ANCHOR_INFO_MAP`, `ELBOW_ANCHOR_PREFIX_HEAD`, `ELBOW_ANCHOR_PREFIX_TAIL`, `ELBOW_ANCHOR_PREFIX_X`, `ELBOW_ANCHOR_PREFIX_Y`, `HANDLE_TYPE`, `HANDLE_TYPE_LIST`, `HANDLE_TYPE_LIST_MAP`, `getElbowAnchorHandleType`, `isHandleApplicable`
++ 📄 [source/state/widget/type/hover.js](source/state/widget/type/hover.js)
+  - `HOVER_ENABLED_HANDLE_SHAPE_MAP_MAP`, `HOVER_ENABLED_HANDLE_TYPE_SET`, `HOVER_TARGET_TYPE`, `HOVER_TARGET_TYPE_LIST`, `HOVER_TARGET_TYPE_LIST_MAP`, `isHoverTargetApplicable`
++ 📄 [source/state/widget/type/shape.js](source/state/widget/type/shape.js)
+  - `WIDGET_SHAPE_TYPE`
++ 📄 [source/state/widget/type/snap.js](source/state/widget/type/snap.js)
+  - `SNAP_ENABLED_HANDEL_TYPE_SET`, `SNAP_TO_SET_MAP`, `SNAP_TYPE`
 + 📄 [source/state/widgetCreator/eventTarget.js](source/state/widgetCreator/eventTarget.js)
   - `EVENT_TARGET_TYPE`, `getEventTargetData`
 + 📄 [source/state/widgetCreator/processor.js](source/state/widgetCreator/processor.js)
@@ -73,35 +105,3 @@
   - `initialState`, `reducerMap`
 + 📄 [source/style/color.js](source/style/color.js)
   - `color`
-+ 📄 [source/widget/data/duplicate.js](source/widget/data/duplicate.js)
-  - `duplicateWidget`, `duplicateWidgetList`
-+ 📄 [source/widget/data/random.js](source/widget/data/random.js)
-  - `randomWidgetList`
-+ 📄 [source/widget/data/sample.js](source/widget/data/sample.js)
-  - `WIDGET_MINI_SAMPLE_LIST`, `WIDGET_MINI_SAMPLE_MAP`, `WIDGET_SAMPLE_LIST`, `WIDGET_SAMPLE_MAP`
-+ 📄 [source/widget/math/base.js](source/widget/math/base.js)
-  - `toClientSpacePoint`, `toEditorSpacePoint`
-+ 📄 [source/widget/math/bind.js](source/widget/math/bind.js)
-  - `addBindByHoverTarget`, `deleteBindByHandleType`
-+ 📄 [source/widget/math/calc.js](source/widget/math/calc.js)
-  - `calcWidgetBindShift`, `calcWidgetFromDataAndPoint`, `calcWidgetResizeHandleDelta`
-+ 📄 [source/widget/math/elbow.js](source/widget/math/elbow.js)
-  - `calcElbowAnchorAdd`, `calcElbowAnchorDelete`, `calcWidgetElbowResizeBind`, `calcWidgetElbowResizeHandleAt`, `calcWidgetElbowResizeHandleDelta`, `fromPoint`, `normalizeElbow`
-+ 📄 [source/widget/math/hover.js](source/widget/math/hover.js)
-  - `HOVER_TARGET_CALC_SHIFT_MAP`, `getWidgetShift`
-+ 📄 [source/widget/math/line.js](source/widget/math/line.js)
-  - `calcWidgetLineResizeHandleAt`, `calcWidgetLineResizeHandleDelta`
-+ 📄 [source/widget/math/rect.js](source/widget/math/rect.js)
-  - `calcDeltaAspectRatioLock`, `calcDeltaLocal`, `calcWidgetRectResizeHandleDelta`
-+ 📄 [source/widget/math/snap.js](source/widget/math/snap.js)
-  - `INITIAL_SNAP_INFO`, `calcSnapDataListOfWidgetList`, `calcSnapInfo`, `formatSnapBoundingRect`
-+ 📄 [source/widget/type/bind.js](source/widget/type/bind.js)
-  - `BIND_CANCEL_HANDLE_TYPE_SET`, `BIND_REPLACE_HANDLE_TYPE_SET`
-+ 📄 [source/widget/type/handle.js](source/widget/type/handle.js)
-  - `ELBOW_ANCHOR_INFO_MAP`, `ELBOW_ANCHOR_PREFIX_HEAD`, `ELBOW_ANCHOR_PREFIX_TAIL`, `ELBOW_ANCHOR_PREFIX_X`, `ELBOW_ANCHOR_PREFIX_Y`, `HANDLE_TYPE`, `HANDLE_TYPE_LIST`, `HANDLE_TYPE_LIST_MAP`, `getElbowAnchorHandleType`, `isHandleApplicable`
-+ 📄 [source/widget/type/hover.js](source/widget/type/hover.js)
-  - `HOVER_ENABLED_HANDLE_SHAPE_MAP_MAP`, `HOVER_ENABLED_HANDLE_TYPE_SET`, `HOVER_TARGET_TYPE`, `HOVER_TARGET_TYPE_LIST`, `HOVER_TARGET_TYPE_LIST_MAP`, `isHoverTargetApplicable`
-+ 📄 [source/widget/type/shape.js](source/widget/type/shape.js)
-  - `WIDGET_SHAPE_TYPE`
-+ 📄 [source/widget/type/snap.js](source/widget/type/snap.js)
-  - `SNAP_ENABLED_HANDEL_TYPE_SET`, `SNAP_TO_SET_MAP`, `SNAP_TYPE`

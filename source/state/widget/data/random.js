@@ -1,6 +1,6 @@
 import { getRandomInt, getRandomId } from 'dr-js/module/common/math/random'
 
-import { WIDGET_SHAPE_TYPE } from 'source/widget/type/shape'
+import { WIDGET_SHAPE_TYPE } from 'source/state/widget/type/shape'
 
 const getRandomWidgetDataMap = (SIZE_ZOOM) => {
   const VIEW_WIDTH = window.innerWidth

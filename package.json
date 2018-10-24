@@ -1,10 +1,10 @@
 {
   "private": true,
   "name": "dr-react",
-  "version": "0.0.2-dev.5",
+  "version": "0.0.2-dev.6",
+  "description": "A collection of strange functions, with React",
   "author": "dr-js",
   "license": "MIT",
-  "description": "A collection of strange functions, with React",
   "keywords": [
     "Dr",
     "Dr-js",
@@ -32,17 +32,17 @@
   },
   "peerDependencies": {
     "dr-js": "0.18.0-dev.6",
-    "react": "^16.6.0",
     "prop-types": "^15.6.2",
+    "react": "^16.6.0",
     "styled-components": "^4.0.2"
   },
   "devDependencies": {
-    "dr-js": "0.18.0-dev.6",
     "dev-dep-tool": "0.5.0-dev.2",
     "dev-dep-web-react-styled-components": "0.5.0-dev.2",
+    "dr-js": "0.18.0-dev.6",
+    "prop-types": "^15.6.2",
     "react": "^16.6.0",
-    "react-dom": "^16.6.0",
-    "prop-types": "^15.6.2"
+    "react-dom": "^16.6.0"
   },
   "sideEffects": false
 }

@@ -1,6 +1,6 @@
 import { createMultiKeySwitch } from 'dr-js/module/common/module/KeySelector'
 
-import { HANDLE_TYPE } from 'source/widget/type/handle'
+import { HANDLE_TYPE } from 'source/state/widget/type/handle'
 import { POINTER_EVENT_TYPE, SELECT_MODE_TYPE, applyPointerEventListener } from 'source/state/event'
 
 import { EVENT_TARGET_TYPE, getEventTargetData } from './eventTarget'

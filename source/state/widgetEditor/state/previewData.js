@@ -3,9 +3,9 @@ import { add } from 'dr-js/module/common/geometry/D2/Vector'
 import { fromWidget } from 'dr-js/module/common/geometry/D2/BoundingRect'
 import { fromBoundingRect } from 'dr-js/module/common/geometry/D2/Widget'
 
-import { WIDGET_SHAPE_TYPE } from 'source/widget/type/shape'
-import { calcWidgetResizeHandleDelta, calcWidgetBindShift } from 'source/widget/math/calc'
-import { deleteBindByHandleType, addBindByHoverTarget } from 'source/widget/math/bind'
+import { WIDGET_SHAPE_TYPE } from 'source/state/widget/type/shape'
+import { calcWidgetResizeHandleDelta, calcWidgetBindShift } from 'source/state/widget/math/calc'
+import { deleteBindByHandleType, addBindByHoverTarget } from 'source/state/widget/math/bind'
 
 const calcPreviewWidgetDataMap = (editorState, elementRefData, eventState, resizeHandleData) => {
   const {

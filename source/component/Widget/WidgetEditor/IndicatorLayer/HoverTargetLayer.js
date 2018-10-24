@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { color } from 'source/style/color'
-import { HOVER_TARGET_TYPE_LIST, HOVER_ENABLED_HANDLE_SHAPE_MAP_MAP } from 'source/widget/type/hover'
-import { STYLE_DISPLAY_NONE, getRectTransformStyle } from 'source/component/Widget/DOM'
+import { HOVER_TARGET_TYPE_LIST, HOVER_ENABLED_HANDLE_SHAPE_MAP_MAP } from 'source/state/widget/type/hover'
+import { STYLE_DISPLAY_NONE, getRectTransformStyle } from 'source/component/Widget/Widget/DOM'
 
 const HOVER_TARGET_RECT_SIZE = '8px'
 const HOVER_TARGET_MASK_SIZE = '32px'
