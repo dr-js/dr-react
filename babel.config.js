@@ -15,8 +15,8 @@ module.exports = {
     [ 'module-resolver', {
       root: [ './' ],
       alias: isModule ? undefined : {
-        'dev-dep-tool/module/(.+)': 'dev-dep-tool/library/',
-        'dr-js/module/(.+)': 'dr-js/library/'
+        '^dr-dev/module/(.+)': 'dr-dev/library/\\1',
+        '^dr-js/module/(.+)': 'dr-js/library/\\1'
       }
     } ]
   ].filter(Boolean),

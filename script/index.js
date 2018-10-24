@@ -1,12 +1,13 @@
 import { resolve } from 'path'
 import { execSync } from 'child_process'
 
-import { argvFlag, runMain } from 'dev-dep-tool/module/main'
-import { getLogger } from 'dev-dep-tool/module/logger'
-import { getScriptFileListFromPathList } from 'dev-dep-tool/module/fileList'
-import { initOutput, packOutput, publishOutput } from 'dev-dep-tool/module/commonOutput'
-import { processFileList, fileProcessorBabel } from 'dev-dep-tool/module/fileProcessor'
-import { getTerserOption, minifyFileListWithTerser } from 'dev-dep-tool/module/minify'
+import { argvFlag, runMain } from 'dr-dev/module/main'
+import { getLogger } from 'dr-dev/module/logger'
+import { getScriptFileListFromPathList } from 'dr-dev/module/fileList'
+import { initOutput, packOutput, publishOutput } from 'dr-dev/module/commonOutput'
+import { processFileList, fileProcessorBabel } from 'dr-dev/module/fileProcessor'
+import { getTerserOption, minifyFileListWithTerser } from 'dr-dev/module/minify'
+import { writeLicenseFile } from 'dr-dev/module/license'
 
 import { binary as formatBinary } from 'dr-js/module/common/format'
 
@@ -27,13 +28,14 @@ const buildOutput = async ({ logger: { padLog } }) => {
 const processOutput = async ({ packageJSON, logger }) => {
   const fileList = await getScriptFileListFromPathList([ 'module' ], fromOutput)
   let sizeReduce = 0
-  sizeReduce += await minifyFileListWithTerser({ fileList, option: getTerserOption({ isModule: true }), rootPath: PATH_OUTPUT, logger })
+  sizeReduce += await minifyFileListWithTerser({ fileList, option: getTerserOption({ isReadable: true }), rootPath: PATH_OUTPUT, logger })
   sizeReduce += await processFileList({ fileList, processor: fileProcessorBabel, rootPath: PATH_OUTPUT, logger })
   logger.padLog(`module size reduce: ${formatBinary(sizeReduce)}B`)
 }
 
 runMain(async (logger) => {
   const packageJSON = await initOutput({ fromRoot, fromOutput, logger })
+  writeLicenseFile(fromRoot('LICENSE'), packageJSON.license, packageJSON.author)
   if (!argvFlag('pack')) return
 
   await buildOutput({ logger })
