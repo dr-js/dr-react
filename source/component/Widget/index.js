@@ -149,7 +149,7 @@ class WidgetRect extends PureComponent {
   render () {
     const { widget, isSelect, pack: { zoom, isLock } } = this.props
     return <WidgetDiv {...{
-      innerRef: this.setRef,
+      ref: this.setRef,
       className: `rect ${isSelect ? ' select' : ''} ${isLock ? 'lock' : ''}`,
       style: getRectTransformStyle(widget, zoom)
     }} />
@@ -173,7 +173,7 @@ class WidgetLine extends PureComponent {
   render () {
     const { widget, isSelect, pack: { zoom, isLock } } = this.props
     return <WidgetDiv {...{
-      innerRef: this.setRef,
+      ref: this.setRef,
       className: `line ${isSelect ? ' select' : ''} ${isLock ? 'lock' : ''}`,
       style: getRectTransformStyle(widget, zoom)
     }} />
@@ -197,7 +197,7 @@ class WidgetElbow extends PureComponent {
   render () {
     const { widget, isSelect, pack: { zoom, isLock } } = this.props
     return <WidgetDiv {...{
-      innerRef: this.setRef,
+      ref: this.setRef,
       className: `elbow ${isSelect ? ' select' : ''} ${isLock ? 'lock' : ''}`,
       style: getRectTransformStyle(widget, zoom)
     }}>

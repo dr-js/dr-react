@@ -16,7 +16,7 @@ const BaseDiv = styled.div`
   height: ${SIZE_RULER};
 `
 
-const IntersectionButton = styled(BaseDiv.withComponent('button'))`
+const RulerIntersectionDiv = styled(BaseDiv)`
   border: 0;
   border-right: 1px solid ${color.border};
   border-bottom: 1px solid ${color.border};
@@ -25,13 +25,13 @@ const IntersectionButton = styled(BaseDiv.withComponent('button'))`
   &.active { background: ${color.text}; }
 `
 
-const RulerHorizontalDiv = styled(BaseDiv.withComponent(RulerHorizontal))`
+const RulerHorizontalDiv = styled(BaseDiv)`
   left: ${SIZE_RULER};
   width: calc(100% - ${SIZE_RULER});
   border-bottom: 1px solid ${color.border};
 `
 
-const RulerVerticalDiv = styled(BaseDiv.withComponent(RulerVertical))`
+const RulerVerticalDiv = styled(BaseDiv)`
   top: ${SIZE_RULER};
   height: calc(100% - ${SIZE_RULER});
   border-right: 1px solid ${color.border};
@@ -47,9 +47,9 @@ const ContentDiv = styled(BaseDiv)`
 const RulerLayer = ({ zoom, valueX, valueY, onClick, className, children }) => {
   const isActive = (valueX !== 0 || valueY !== 0)
   return <div className={className || ''}>
-    <IntersectionButton className={isActive ? 'active' : ''} onClick={isActive ? onClick : null} disabled={!isActive} />
-    <RulerHorizontalDiv zoom={zoom} valueX={valueX} />
-    <RulerVerticalDiv zoom={zoom} valueY={valueY} />
+    <RulerIntersectionDiv as="button" className={isActive ? 'active' : ''} onClick={isActive ? onClick : null} disabled={!isActive} />
+    <RulerHorizontalDiv as={RulerHorizontal} zoom={zoom} valueX={valueX} />
+    <RulerVerticalDiv as={RulerVertical} zoom={zoom} valueY={valueY} />
     <ContentDiv>
       {children}
     </ContentDiv>

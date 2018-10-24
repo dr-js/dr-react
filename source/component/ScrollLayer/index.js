@@ -161,7 +161,7 @@ class ScrollLayer extends PureComponent {
     // const style = { transform: `translate(${Math.round(-x * zoom)}px, ${Math.round(-y * zoom)}px)` } // TODO: might be faster with transform && will-change
     const style = { left: `${Math.round(-x * zoom)}px`, top: `${Math.round(-y * zoom)}px` }
 
-    return <RootLayerDiv innerRef={this.setRef} className={cursorClassName || ''} {...this.editorEventMap}>
+    return <RootLayerDiv ref={this.setRef} className={cursorClassName || ''} {...this.editorEventMap}>
       <OffsetLayerDiv className={cursorClassName || ''} style={style}>
         {children}
       </OffsetLayerDiv>
@@ -221,8 +221,8 @@ class ScrollLayerBounded extends ScrollLayer {
     const { cursorClassName } = this.state
     const { contextStyle, counterOffsetStyle } = this.getScrollContextStyleCached(boundRect, zoom, viewport)
 
-    return <RootLayerDiv innerRef={this.setRef} className={`${cursorClassName || ''} ${className || ''}`} {...this.editorEventMap}>
-      <ScrollLayerDiv innerRef={this.setScrollElementRef}>
+    return <RootLayerDiv ref={this.setRef} className={`${cursorClassName || ''} ${className || ''}`} {...this.editorEventMap}>
+      <ScrollLayerDiv ref={this.setScrollElementRef}>
         <RootContextLayerDiv style={contextStyle}>
           <CounterOffsetLayerDiv style={counterOffsetStyle}>
             {children}

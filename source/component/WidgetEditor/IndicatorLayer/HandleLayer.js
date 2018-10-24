@@ -118,7 +118,7 @@ class HandleLayer extends PureComponent {
     this.handleComponentListMap = Object.keys(HANDLE_TYPE_LIST_MAP).reduce((o, shape) => {
       o[ shape ] = HANDLE_TYPE_LIST_MAP[ shape ].map((name) => <EditHandleDiv
         key={name}
-        innerRef={(ref) => this.props.setHandleElement(name, ref)}
+        ref={(ref) => this.props.setHandleElement(name, ref)}
         className={name}
       />)
       return o

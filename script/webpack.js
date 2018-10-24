@@ -1,9 +1,9 @@
 import { resolve } from 'path'
 import { DefinePlugin } from 'webpack'
 
-import { argvFlag, runMain } from 'dev-dep-tool/library/main'
-import { getLogger } from 'dev-dep-tool/library/logger'
-import { compileWithWebpack, commonFlag } from 'dev-dep-tool/library/webpack'
+import { argvFlag, runMain } from 'dev-dep-tool/module/main'
+import { getLogger } from 'dev-dep-tool/module/logger'
+import { compileWithWebpack, commonFlag } from 'dev-dep-tool/module/webpack'
 
 const PATH_ROOT = resolve(__dirname, '..')
 const fromRoot = (...args) => resolve(PATH_ROOT, ...args)
@@ -30,7 +30,7 @@ runMain(async (logger) => {
     mode,
     bail: isProduction,
     output: { path: fromRoot('example/source-gitignore/'), filename: '[name].js', library: 'DrReact', libraryTarget: 'umd' },
-    entry: { 'index': 'source/index.example' },
+    entry: { 'index': 'source/index.example' }, // TODO: currently output example, not library
     resolve: { alias: { source: fromRoot('source') } },
     module: { rules: [ { test: /\.js$/, use: [ { loader: 'babel-loader', options: babelOption } ] } ] },
     plugins: [ new DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(mode), '__DEV__': !isProduction }) ],

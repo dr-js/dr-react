@@ -70,7 +70,7 @@ class SampleLayer extends PureComponent {
 
       o[ shape ] = (selectSampleShape, isLock) => {
         const isSelect = selectSampleShape === shape
-        return <WidgetSampleWrapperDiv {...{ innerRef: ref, className: `${isSelect ? 'select' : ''} ${isLock ? 'lock' : ''}`, onClick: isSelect ? clearSelect : setSelect }}>
+        return <WidgetSampleWrapperDiv {...{ ref, className: `${isSelect ? 'select' : ''} ${isLock ? 'lock' : ''}`, onClick: isSelect ? clearSelect : setSelect }}>
           {renderSample(sampleWidget, false, this.props.isLock ? samplePropsPackLock : samplePropsPack)}
         </WidgetSampleWrapperDiv>
       }
@@ -83,7 +83,7 @@ class SampleLayer extends PureComponent {
     const { isLock, selectSampleShape, className, funcPack: { setSampleLayerElement, doToggleMode, doToggleLock } } = this.props
 
     return <SampleLayerDiv className={className || ''}>
-      <WidgetSamplePanelDiv innerRef={setSampleLayerElement} className={isLock ? 'lock' : ''}>
+      <WidgetSamplePanelDiv ref={setSampleLayerElement} className={isLock ? 'lock' : ''}>
         <WidgetSampleWrapperDiv className="lock" onClick={doToggleMode}>{'Mode'}</WidgetSampleWrapperDiv>
         <WidgetSampleWrapperDiv className={isLock ? 'select' : ''} onClick={doToggleLock}>{isLock ? 'Lock' : 'UnLock'}</WidgetSampleWrapperDiv>
         {this.sampleMap[ WIDGET_SHAPE_TYPE.RECT ](selectSampleShape, isLock)}

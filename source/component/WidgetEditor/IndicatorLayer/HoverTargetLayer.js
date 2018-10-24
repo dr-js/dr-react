@@ -75,7 +75,7 @@ class HoverTargetLayer extends PureComponent {
     this.hoverTargetComponentMap = HOVER_TARGET_TYPE_LIST.reduce((o, name) => {
       o[ name ] = <EditHoverTargetDiv
         key={name}
-        innerRef={(ref) => this.props.setHoverTargetElement(name, ref)}
+        ref={(ref) => this.props.setHoverTargetElement(name, ref)}
         className={name}
       />
       return o

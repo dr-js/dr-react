@@ -1,4 +1,4 @@
-import { findKeyInMap } from 'source/__utils__/data'
+import { objectFindKey } from 'dr-js/module/common/immutable/Object'
 import { getPathElementList } from 'dr-js/module/browser/DOM'
 
 const EVENT_TARGET_TYPE = {
@@ -25,7 +25,7 @@ const getEventTargetData = (state, elementRefData, eventState) => {
 
   if (elementSampleLayer.contains(elementTarget)) {
     const [ possibleSampleElement ] = getPathElementList(elementSampleLayer, elementTarget)
-    const targetSampleShape = findKeyInMap(elementSampleMap, ([ , element ]) => element.contains(possibleSampleElement)) || null
+    const targetSampleShape = objectFindKey(elementSampleMap, ([ , element ]) => element.contains(possibleSampleElement)) || null
     if (targetSampleShape) return { type: EVENT_TARGET_TYPE.SAMPLE, targetSampleShape }
   }
 

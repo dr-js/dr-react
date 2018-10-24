@@ -6,6 +6,8 @@ import { arrayPush } from 'dr-js/module/common/immutable/Array'
 import { createStateStore } from 'dr-js/module/common/immutable/StateStore'
 
 import { transformCache, delayArgvQueueByAnimationFrame } from 'source/__dev__'
+
+// TODO: move form `source/component/` to directory `WidgetComponent/`
 import { WidgetCreator } from 'source/component/WidgetCreator'
 import { WidgetEditor } from 'source/component/WidgetEditor'
 import { initialState as initialWidgetCreatorState, reducerMap as reducerWidgetCreatorMap } from 'source/state/widgetCreator/state'

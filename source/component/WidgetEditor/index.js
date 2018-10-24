@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { injectGlobal } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 import { arrayFindSet } from 'dr-js/module/common/immutable/Array'
 
 import { transformCache } from 'source/__dev__'
@@ -13,7 +13,12 @@ import { IndicatorLayer } from './IndicatorLayer'
 
 const CSS_EVENT_DEFAULT_FIX = 'event-default-fix'
 
-injectGlobal`.${CSS_EVENT_DEFAULT_FIX} { touch-action: none; user-select: none; }`
+const GlobalStyle = createGlobalStyle`
+  .${CSS_EVENT_DEFAULT_FIX} {
+    touch-action: none;
+    user-select: none;
+  }
+`
 
 const DEFAULT_CENTER_OFFSET = { x: 0, y: 0 }
 
@@ -135,6 +140,7 @@ class WidgetEditor extends PureComponent {
           zoom, rangeBoundingRect, handleType, snapDataList, previewBoundingRect, hoverWidget, singleSelectPreviewWidget, funcPack: this.indicatorLayerFuncPack
         }} />}
       </ScrollLayer>
+      <GlobalStyle />
     </RulerLayer>
   }
 }
@@ -156,6 +162,7 @@ class WidgetEditorViewer extends WidgetEditor {
       ...this.scrollLayerProps
     }}>
       <WidgetLayer {...{ zoom, isLock, widgetList, funcPack: this.widgetLayerFuncPack }} />
+      <GlobalStyle />
     </ScrollLayerBounded>
   }
 }
@@ -165,6 +172,7 @@ const WidgetEditorSnapshot = ({ widgetList, widgetEditor: { zoom } }) => <Scroll
   zoom
 }}>
   <WidgetLayerSnapshot {...{ widgetList, zoom }} isLock />
+  <GlobalStyle />
 </ScrollLayerStatic>
 WidgetEditorSnapshot.propTypes = {
   widgetList: PropTypes.array,

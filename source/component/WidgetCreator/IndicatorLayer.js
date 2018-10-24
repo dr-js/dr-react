@@ -52,7 +52,7 @@ class IndicatorLayer extends PureComponent {
     const viewportStyle = isActive ? this.getViewportStyleCached(viewport) : STYLE_DISPLAY_NONE
     const offsetLayerStyle = previewWidget ? this.getOffsetLayerStyleCached(zoom, centerOffset, isValidPlace) : STYLE_DISPLAY_NONE
 
-    return <IndicatorLayerDiv innerRef={setRef} style={viewportStyle}>
+    return <IndicatorLayerDiv ref={setRef} style={viewportStyle}>
       <div style={offsetLayerStyle}>
         {previewWidget && renderWidget(previewWidget, false, { zoom, isLock: true, setRef: EMPTY_FUNC })}
       </div>

@@ -5,8 +5,6 @@
 #### Export Path
 + 📄 [source/\_\_dev\_\_.js](source/__dev__.js)
   - `delayArgvQueueByAnimationFrame`, `transformCache`
-+ 📄 [source/\_\_utils\_\_/data.js](source/__utils__/data.js)
-  - `findKeyInMap`
 + 📄 [source/component/RulerLayer/Ruler.js](source/component/RulerLayer/Ruler.js)
   - `RulerHorizontal`, `RulerVertical`
 + 📄 [source/component/RulerLayer/\_\_utils\_\_.js](source/component/RulerLayer/__utils__.js)

@@ -38,7 +38,7 @@ class WidgetLayer extends PureComponent {
     const { zoom, isLock, widgetList, previewWidgetDataMap, funcPack: { setExternalLockWidgetId, setWidgetLayerElement, setWidgetElement } } = this.props
     const pack = this.getPackCached(zoom, isLock, setExternalLockWidgetId, setWidgetElement)
 
-    return <WidgetLayerDiv innerRef={setWidgetLayerElement}>
+    return <WidgetLayerDiv ref={setWidgetLayerElement}>
       {widgetList.map((widget) => {
         const previewWidgetData = previewWidgetDataMap[ widget.id ]
         if (!previewWidgetData) return renderWidget(widget, false, pack)

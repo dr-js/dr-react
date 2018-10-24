@@ -1,7 +1,5 @@
-import { objectSet } from 'dr-js/module/common/immutable/Object'
+import { objectSet, objectFindKey } from 'dr-js/module/common/immutable/Object'
 import { getElementAtViewport } from 'dr-js/module/browser/DOM'
-
-import { findKeyInMap } from 'source/__utils__/data'
 import { HOVER_ENABLED_HANDLE_TYPE_SET } from 'source/widget/type/hover'
 
 const calcHoverWidgetId = (state, editorState, elementRefData, eventState) => {
@@ -15,7 +13,7 @@ const calcHoverWidgetId = (state, editorState, elementRefData, eventState) => {
 
   const possibleWidgetElement = getElementAtViewport(eventState.point, [ elementIndicatorLayer, ...selectIdList.map((id) => elementWidgetMap[ id ]) ])
   return possibleWidgetElement
-    ? findKeyInMap(elementWidgetMap, ([ , element ]) => element.contains(possibleWidgetElement))
+    ? objectFindKey(elementWidgetMap, ([ , element ]) => element.contains(possibleWidgetElement))
     : null
 }
 

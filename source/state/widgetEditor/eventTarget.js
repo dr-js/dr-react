@@ -1,4 +1,4 @@
-import { findKeyInMap } from 'source/__utils__/data'
+import { objectFindKey } from 'dr-js/module/common/immutable/Object'
 import { getPathElementList, getElementAtViewport } from 'dr-js/module/browser/DOM'
 
 const EVENT_TARGET_TYPE = {
@@ -28,7 +28,7 @@ const getEventTargetData = (state, elementRefData, eventState) => {
 
   if (elementWidgetLayer.contains(elementTarget)) {
     const [ possibleWidgetElement ] = getPathElementList(elementWidgetLayer, elementTarget)
-    const targetWidgetId = findKeyInMap(elementWidgetMap, ([ , element ]) => element.contains(possibleWidgetElement)) || null
+    const targetWidgetId = objectFindKey(elementWidgetMap, ([ , element ]) => element.contains(possibleWidgetElement)) || null
     if (targetWidgetId && (!lockWidgetId || lockWidgetId !== targetWidgetId)) {
       const type = !rangeBoundingRect && selectIdList.includes(targetWidgetId)
         ? EVENT_TARGET_TYPE.WIDGET_SELECT
@@ -39,13 +39,13 @@ const getEventTargetData = (state, elementRefData, eventState) => {
   }
 
   if (elementIndicatorLayer.contains(elementTarget)) {
-    const handleType = findKeyInMap(elementIndicatorHandleMap, ([ , element ]) => element.contains(elementTarget))
+    const handleType = objectFindKey(elementIndicatorHandleMap, ([ , element ]) => element.contains(elementTarget))
     if (handleType) {
       const possibleHoverTargetElement = getElementAtViewport(eventState.point, [
         ...Object.values(elementIndicatorHandleMap),
         elementWidgetLayer
       ])
-      const hoverTargetType = findKeyInMap(elementIndicatorHoverTargetMap, ([ , element ]) => element.contains(possibleHoverTargetElement))
+      const hoverTargetType = objectFindKey(elementIndicatorHoverTargetMap, ([ , element ]) => element.contains(possibleHoverTargetElement))
 
       return { type: EVENT_TARGET_TYPE.HANDLE, targetWidgetId: null, hoverTargetType, handleType }
     }

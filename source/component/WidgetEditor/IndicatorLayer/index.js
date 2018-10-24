@@ -63,7 +63,7 @@ class IndicatorLayer extends PureComponent {
       }
     } = this.props
 
-    return <IndicatorLayerDiv innerRef={setIndicatorLayerElement}>
+    return <IndicatorLayerDiv ref={setIndicatorLayerElement}>
       <HandleLayer {...{ zoom, singleSelectPreviewWidget, previewBoundingRect, setHandleElement, updateWidget }} />
       <HoverTargetLayer {...{ zoom, handleType, hoverWidget, setHoverTargetElement }} />
       <SnapLayer {...{ zoom, snapDataList, previewBoundingRect }} />
