@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { transformCache } from 'source/__dev__'
+import { transformCache } from 'source/function'
 import { color } from 'source/style/color'
 import { WIDGET_SHAPE_TYPE } from 'source/state/widget/type/shape'
 import {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { createGlobalStyle } from 'styled-components'
 import { arrayFindSet } from 'dr-js/module/common/immutable/Array'
 
-import { transformCache } from 'source/__dev__'
+import { transformCache } from 'source/function'
 import { RulerLayer } from 'source/component/RulerLayer'
 import { ScrollLayer, ScrollLayerBounded, ScrollLayerStatic } from 'source/component/ScrollLayer'
 import { applyWidgetEditorStateProcessor } from 'source/state/widgetEditor/processor'

@@ -12,7 +12,7 @@ import { initialState as initialWidgetCreatorState, reducerMap as reducerWidgetC
 import { initialState as initialWidgetEditorState, reducerMap as reducerWidgetEditorMap } from 'source/state/widgetEditor/state'
 import { duplicateWidget } from 'source/state/widget/data/duplicate'
 
-import { transformCache, delayArgvQueueByAnimationFrame } from 'source/__dev__'
+import { transformCache, delayArgvQueue } from 'source/function'
 
 const mapWidgetCreatorStateCached = transformCache((isLock, zoom, centerOffset, viewport) => ({
   isLock, zoom, centerOffset, viewport
@@ -39,7 +39,7 @@ const initReactRender = ({ rootElement, initialState: externalState }) => {
 
   // TODO: simple store, upgrade to Redux
   const getState = () => externalState
-  const updateStateDelayed = delayArgvQueueByAnimationFrame((argvQueue) => {
+  const updateStateDelayed = delayArgvQueue((argvQueue) => {
     const [ externalData ] = argvQueue[ argvQueue.length - 1 ]
     __DEV__ && console.time('[Root] updateState')
     creatorStateStore.setState(reducerWidgetCreatorMap[ 'reducer:set:external-data' ](creatorStateStore.getState(), getWidgetCreatorStateCached(externalData)))

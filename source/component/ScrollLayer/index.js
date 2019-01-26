@@ -4,11 +4,11 @@ import styled from 'styled-components'
 
 import { objectMerge } from 'dr-js/module/common/immutable/Object'
 
-import { transformCache, delayArgvQueueByAnimationFrame } from 'source/__dev__'
+import { transformCache, delayArgvQueue } from 'source/function'
 import { color } from 'source/style/color'
 import { ZOOM_IN, ZOOM_OUT, reduceZoomAt } from 'source/state/editorZoom'
 
-import { getScrollContextStyle, CANCEL_MOUSE_DRAG, createMouseDragEventListenerMap } from './__utils__'
+import { getScrollContextStyle, CANCEL_MOUSE_DRAG, createMouseDragEventListenerMap } from './function'
 
 const RootLayerDiv = styled.div`
   z-index: 0; /* z-context-main */
@@ -82,12 +82,12 @@ class ScrollLayer extends PureComponent {
       nextViewport !== viewport && onChange({ viewport: nextViewport })
     }
 
-    this.updateZoomAtDelayed = delayArgvQueueByAnimationFrame((argvQueue) => {
+    this.updateZoomAtDelayed = delayArgvQueue((argvQueue) => {
       const [ clientX, clientY, isReduceZoomValue ] = argvQueue[ argvQueue.length - 1 ]
       const { zoom, viewport, centerOffset, onChange } = this.props
       onChange(reduceZoomAt({ zoom, viewport, centerOffset }, { clientX, clientY }, isReduceZoomValue))
     })
-    this.updateCenterOffsetDelayed = delayArgvQueueByAnimationFrame((argvQueue) => {
+    this.updateCenterOffsetDelayed = delayArgvQueue((argvQueue) => {
       const [ deltaX, deltaY ] = argvQueue.reduce((o, [ deltaX, deltaY ]) => {
         o[ 0 ] += deltaX
         o[ 1 ] += deltaY

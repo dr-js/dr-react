@@ -12,16 +12,7 @@ const SINGLE_PX_LINE_FIX = -0.5
 
 const getOffscreenCanvasElement = () => document.createElement('canvas')
 
-const getDeviceScale = () => { // how many physical pixel per `px`
-  const context = getOffscreenCanvasElement().getContext('2d')
-  const backingStorePixelRatio = context.backingStorePixelRatio || // TODO: NOTE: backingStorePixelRatio should be deprecated
-    context.webkitBackingStorePixelRatio ||
-    context.mozBackingStorePixelRatio ||
-    context.msBackingStorePixelRatio ||
-    context.oBackingStorePixelRatio || 1
-  const devicePixelRatio = window.devicePixelRatio || 1
-  return devicePixelRatio / backingStorePixelRatio
-}
+const getDeviceScale = () => window.devicePixelRatio || 1 // how many physical pixel per `px`
 
 const prepareFontContext = (canvasContext, deviceScale) => {
   canvasContext.font = GET_FONT(deviceScale)

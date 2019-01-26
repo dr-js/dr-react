@@ -2,7 +2,7 @@ import { objectMerge, objectSet } from 'dr-js/module/common/immutable/Object'
 import { arrayPush, arrayDelete, arrayMatchPush, arrayMatchDelete } from 'dr-js/module/common/immutable/Array'
 import { fromPoint, fromWidgetList, isIntersect } from 'dr-js/module/common/geometry/D2/BoundingRect'
 
-import { transformCache } from 'source/__dev__'
+import { transformCache } from 'source/function'
 import { SELECT_MODE_TYPE } from 'source/state/event'
 
 const reducerSelectIdList = (state, editorState, getIsSelect) => {

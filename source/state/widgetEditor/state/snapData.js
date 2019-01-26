@@ -2,7 +2,7 @@ import { objectSet } from 'dr-js/module/common/immutable/Object'
 import { fromWidget } from 'dr-js/module/common/geometry/D2/BoundingRect'
 import { fromBoundingRect } from 'dr-js/module/common/geometry/D2/Widget'
 
-import { transformCache } from 'source/__dev__'
+import { transformCache } from 'source/function'
 import { SNAP_ENABLED_HANDEL_TYPE_SET } from 'source/state/widget/type/snap'
 import { calcWidgetResizeHandleDelta } from 'source/state/widget/math/calc'
 import { INITIAL_SNAP_INFO, calcSnapDataListOfWidgetList, calcSnapInfo, formatSnapBoundingRect } from 'source/state/widget/math/snap'

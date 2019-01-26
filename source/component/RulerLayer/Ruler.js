@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import { transformCache } from 'source/__dev__'
+import { transformCache } from 'source/function'
 
 import {
   getOffscreenCanvasElement,
@@ -12,7 +12,7 @@ import {
   updateVerticalBuffer,
   calcValueLowBoundForGroup,
   calcValueHighBoundForGroup
-} from './__utils__'
+} from './function'
 import { getSizeFromZoom } from './zoom'
 
 const RULER_TAG_OFFSET_PX = 4 // px

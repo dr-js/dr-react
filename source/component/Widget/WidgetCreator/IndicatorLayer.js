@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { transformCache } from 'source/__dev__'
+import { transformCache } from 'source/function'
 import { renderWidget } from 'source/component/Widget/Widget'
 import { STYLE_DISPLAY_NONE } from 'source/component/Widget/Widget/DOM'
 
