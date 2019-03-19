@@ -17,21 +17,30 @@ const WidgetDiv = styled.div`
   &.select { cursor: move; }
   &.lock.select { cursor: not-allowed; }
   
-  /* debug style */
-  &.rect { background: rgba(0, 0, 255, 0.2); }
-  &.line { background: rgba(255, 0, 0, 0.2); }
+  &.rect { background: rgba(0, 0, 255, 1); }
+  &.line { background: rgba(255, 0, 0, 1); }
   &.elbow {
     pointer-events: none;
     & > div {
       pointer-events: auto;
       position: absolute;
-      background: rgba(50, 50, 0, 0.2);
+      background: rgba(50, 50, 0, 1);
     }
     & > .head,
-    & > .tail { background: rgba(0, 50, 0, 0.6); }
+    & > .tail { background: rgba(0, 50, 0, 1); }
     &.select > div { cursor: move; }
     &.lock.select > div { cursor: not-allowed; }
   }
+  
+  /* debug style */
+  &.rect { background: rgba(0, 0, 255, 0.2); }
+  &.line { background: rgba(255, 0, 0, 0.2); }
+  &.elbow {
+    & > div { background: rgba(50, 50, 0, 0.2); }
+    & > .head,
+    & > .tail { background: rgba(0, 50, 0, 0.6); }
+  }
+  /* debug style */
   
   /* special style */
   &.line-link {

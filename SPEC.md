@@ -17,6 +17,8 @@
   - `CANCEL_MOUSE_DRAG`, `createMouseDragEventListenerMap`, `getScrollContextStyle`
 + 📄 [source/component/ScrollLayer/index.js](source/component/ScrollLayer/index.js)
   - `ScrollLayer`, `ScrollLayerBounded`, `ScrollLayerStatic`
++ 📄 [source/component/ScrollLayer/passiveWheelEventPatch.js](source/component/ScrollLayer/passiveWheelEventPatch.js)
+  - `addNonPassiveWheelEventListener`, `removeNonPassiveWheelEventListener`
 + 📄 [source/component/Widget/Widget/DOM.js](source/component/Widget/Widget/DOM.js)
   - `STYLE_DISPLAY_NONE`, `getBoundingRectTransformStyle`, `getElbowAnchorEndTransformStyle`, `getElbowAnchorTransformStyle`, `getRectTransformStyle`
 + 📄 [source/component/Widget/Widget/index.js](source/component/Widget/Widget/index.js)

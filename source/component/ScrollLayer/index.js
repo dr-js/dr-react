@@ -8,6 +8,7 @@ import { transformCache, delayArgvQueue } from 'source/function'
 import { color } from 'source/style/color'
 import { ZOOM_IN, ZOOM_OUT, reduceZoomAt } from 'source/state/editorZoom'
 
+import { addNonPassiveWheelEventListener, removeNonPassiveWheelEventListener } from './passiveWheelEventPatch'
 import { getScrollContextStyle, CANCEL_MOUSE_DRAG, createMouseDragEventListenerMap } from './function'
 
 const RootLayerDiv = styled.div`
@@ -149,10 +150,14 @@ class ScrollLayer extends PureComponent {
     window.addEventListener('resize', this.updateViewport)
     this.updateViewport()
     this.elementRef && this.elementRef.focus()
+
+    addNonPassiveWheelEventListener(this.elementRef, this.editorEventMap.onWheel)
   }
 
   componentWillUnmount () {
     window.removeEventListener('resize', this.updateViewport)
+
+    removeNonPassiveWheelEventListener(this.elementRef, this.editorEventMap.onWheel)
   }
 
   render () {

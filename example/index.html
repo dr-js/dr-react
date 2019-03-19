@@ -19,33 +19,38 @@
   const { DrReact: { initReactRender, initialState: defaultInitialState } } = window
 
   const initialState = Object.assign({}, defaultInitialState)
-  initialState.widgetList = [ {
-    id: 'W-rect',
+
+  const getWidgetSample = (widgetList, id = 0, randomDelta = (2 * Math.random() + 1)) => widgetList.push({
+    id: `W-rect-${id}`,
     shape: 'rect',
-    size: { x: 279, y: 146 },
+    size: { x: 279 * randomDelta, y: 146 * randomDelta },
     rotate: 1.4144,
     zIndex: 0,
-    center: { x: 924, y: 290 },
+    center: { x: 924 * randomDelta, y: 290 * randomDelta },
     bindData: null
   }, {
-    id: 'W-line',
+    id: `W-line-${id}`,
     shape: 'line',
-    size: { x: 14.323960031402606, y: 315.734887252025 },
+    size: { x: 14.323960031402606 * randomDelta, y: 315.734887252025 * randomDelta },
     rotate: 1.991546747236618,
     zIndex: 1,
-    center: { x: 1140.2077052777, y: 343.10980699105403 },
-    bindData: { 'W-rect': { end: { shiftX: 0, shiftY: -0.5 } } }
+    center: { x: 1140.2077052777 * randomDelta, y: 343.10980699105403 * randomDelta },
+    bindData: { [ `W-rect-${id}` ]: { end: { shiftX: 0, shiftY: -0.5 } } }
   }, {
-    id: 'W-elbow',
+    id: `W-elbow-${id}`,
     shape: 'elbow',
     size: { x: 22, y: 226 },
     rotate: 135.4284,
     zIndex: 1,
     width: 9,
     anchors: [ { x: 0, y: 226 }, { x: 0, y: 110 }, { x: 22, y: 110 }, { x: 22, y: 0 } ],
-    center: { x: 804, y: 404 },
-    bindData: { 'W-rect': { 'anchor head': { shiftX: 0, shiftY: 0.5 } } }
-  } ]
+    center: { x: 804 * randomDelta, y: 404 * randomDelta },
+    bindData: { [ `W-rect-${id}` ]: { 'anchor head': { shiftX: 0, shiftY: 0.5 } } }
+  })
+
+  initialState.widgetList = []
+  for (let index = 0, indexMax = 2; index < indexMax; index++) getWidgetSample(initialState.widgetList, index)
+  // for (let index = 0, indexMax = 128; index < indexMax; index++) getWidgetSample(initialState.widgetList, index)
 
   window.D = initReactRender({
     rootElement: document.querySelector('#root'),

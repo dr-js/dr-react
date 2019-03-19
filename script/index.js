@@ -6,7 +6,6 @@ import { runMain, argvFlag } from 'dr-dev/module/main'
 import { initOutput, packOutput, publishOutput } from 'dr-dev/module/output'
 import { processFileList, fileProcessorBabel } from 'dr-dev/module/fileProcessor'
 import { getTerserOption, minifyFileListWithTerser } from 'dr-dev/module/minify'
-import { writeLicenseFile } from 'dr-dev/module/license'
 
 import { binary as formatBinary } from 'dr-js/module/common/format'
 
@@ -24,7 +23,7 @@ const buildOutput = async ({ logger: { padLog } }) => {
   execSync('npm run build-module', execOptionRoot)
 }
 
-const processOutput = async ({ packageJSON, logger }) => {
+const processOutput = async ({ logger }) => {
   const fileList = await getScriptFileListFromPathList([ 'module' ], fromOutput)
   let sizeReduce = 0
   sizeReduce += await minifyFileListWithTerser({ fileList, option: getTerserOption({ isReadable: true }), rootPath: PATH_OUTPUT, logger })
@@ -34,11 +33,10 @@ const processOutput = async ({ packageJSON, logger }) => {
 
 runMain(async (logger) => {
   const packageJSON = await initOutput({ fromRoot, fromOutput, logger })
-  writeLicenseFile(fromRoot('LICENSE'), packageJSON.license, packageJSON.author)
   if (!argvFlag('pack')) return
 
   await buildOutput({ logger })
-  await processOutput({ packageJSON, logger })
+  await processOutput({ logger })
 
   const pathPackagePack = await packOutput({ fromRoot, fromOutput, logger })
   await publishOutput({ flagList: process.argv, packageJSON, pathPackagePack, logger })
