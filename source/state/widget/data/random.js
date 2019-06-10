@@ -23,7 +23,7 @@ const getRandomWidgetDataMap = (SIZE_ZOOM) => {
       { y: getRandomInt(0, ELBOW_SIZE_ZOOM) },
       { x: 0 } // end
     ]
-    let last = {}
+    const last = {}
     const size = { x: 0, y: 0 }
     anchors.forEach((anchor) => {
       const { x, y } = anchor

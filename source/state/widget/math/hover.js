@@ -26,8 +26,8 @@ const HOVER_TARGET_CALC_SHIFT_MAP = {
   },
   [ HOVER_TARGET_TYPE.ANY_RECT_OUTLINE ]: (widget, element, { point: { x, y } }) => {
     const { left, top, width, height } = element.getBoundingClientRect()
-    let offsetX = clampOffset((x - left) / width)
-    let offsetY = clampOffset((y - top) / height)
+    const offsetX = clampOffset((x - left) / width)
+    const offsetY = clampOffset((y - top) / height)
     return Math.abs(offsetX - 0.5) * width < Math.abs(offsetY - 0.5) * height
       ? { shiftX: Math.round(offsetX), shiftY: roundFloat(offsetY - 0.5) } // use left or right outline
       : { shiftX: roundFloat(offsetX - 0.5), shiftY: Math.round(offsetY) } // use top or bottom outline

@@ -1,15 +1,10 @@
 {
   "private": true,
   "name": "dr-react",
-  "version": "0.0.2-dev.9",
+  "version": "0.0.2-dev.10",
   "description": "A collection of strange functions, with React",
   "author": "dr-js",
   "license": "MIT",
-  "keywords": [
-    "Dr",
-    "Dr-js",
-    "JavaScript"
-  ],
   "repository": "github:dr-js/dr-react",
   "scripts": {
     "// script ======================": "",
@@ -24,6 +19,7 @@
     "build-example-dev": "babel-node ./script/webpack development watch",
     "// =============================": "",
     "analyze-stat": "npx webpack-bundle-analyzer .temp-gitignore/profile-stat.json",
+    "lint": "eslint ./source/ ./script/",
     "prepack": "echo \"Error: pack with script-*\" && exit 1"
   },
   "engines": {
@@ -31,15 +27,15 @@
     "npm": ">=6"
   },
   "peerDependencies": {
-    "dr-js": "^0.21.1 || ^0.21.1-dev.2",
+    "dr-js": "^0.22.2 || ^0.22.2-dev.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "styled-components": "^4.3.0"
+    "styled-components": "^4.3.2"
   },
   "devDependencies": {
-    "dr-dev": "0.0.6-dev.3",
-    "dr-dev-web-react-styled-components": "0.0.6-dev.3",
-    "dr-js": "0.21.1-dev.2",
+    "dr-dev": "0.0.6-dev.8",
+    "dr-dev-web-react-styled-components": "0.0.6-dev.8",
+    "dr-js": "0.22.2-dev.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"

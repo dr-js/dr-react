@@ -2,16 +2,15 @@
 
 [![i:npm]][l:npm]
 [![i:size]][l:size]
-[![i:lint]][l:lint]
+[![i:npm-dev]][l:npm]
 
 A collection of strange functions, with React
 
 [i:npm]: https://img.shields.io/npm/v/dr-react.svg
+[i:npm-dev]: https://img.shields.io/npm/v/dr-react/dev.svg
 [l:npm]: https://npm.im/dr-react
 [i:size]: https://packagephobia.now.sh/badge?p=dr-react
 [l:size]: https://packagephobia.now.sh/result?p=dr-react
-[i:lint]: https://img.shields.io/badge/code_style-standard_ES6+-yellow.svg
-[l:lint]: https://standardjs.com
 
 [//]: # (NON_PACKAGE_CONTENT)
 
