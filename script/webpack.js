@@ -8,7 +8,7 @@ const PATH_ROOT = resolve(__dirname, '..')
 const fromRoot = (...args) => resolve(PATH_ROOT, ...args)
 
 runMain(async (logger) => {
-  const { mode, isWatch, isProduction, profileOutput, assetMapOutput, getCommonWebpackConfig } = await commonFlag({ fromRoot, logger })
+  const { mode, isWatch, isProduction, profileOutput, getCommonWebpackConfig } = await commonFlag({ fromRoot, logger })
 
   const config = getCommonWebpackConfig({
     babelOption: getWebpackBabelConfig({
@@ -21,5 +21,5 @@ runMain(async (logger) => {
   })
 
   logger.padLog(`compile with webpack mode: ${mode}, isWatch: ${Boolean(isWatch)}`)
-  await compileWithWebpack({ config, isWatch, profileOutput, assetMapOutput, logger })
+  await compileWithWebpack({ config, isWatch, profileOutput, logger })
 }, 'webpack')

@@ -41,7 +41,7 @@ const calcPreviewWidgetDataMap = (editorState, elementRefData, eventState, resiz
   //  - this assumes all bind target do not have bindData, so their previewData can be used as final destination
   widgetList.forEach(({ id }) => {
     const { previewWidget } = previewWidgetDataMap[ id ]
-    if (previewWidget.bindData) previewWidgetDataMap[ id ].previewWidget = calcWidgetBindShift(previewWidget, previewWidgetDataMap)
+    if (previewWidget.bindData && bindSelectIdList.includes(previewWidget.id)) previewWidgetDataMap[ id ].previewWidget = calcWidgetBindShift(previewWidget, previewWidgetDataMap)
   })
 
   return previewWidgetDataMap

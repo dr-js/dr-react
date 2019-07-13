@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import { applyWidgetCreatorStateProcessor } from 'source/state/widgetCreator/processor'
 import { reducerMap } from 'source/state/widgetCreator/state'
 
+import { WidgetGlobalStyle } from 'source/component/Widget/Widget'
+
 import { SampleLayer } from './SampleLayer'
 import { IndicatorLayer } from './IndicatorLayer'
 
@@ -96,6 +98,7 @@ class WidgetCreator extends PureComponent {
     return <WidgetCreatorDiv ref={this.setCreatorLayerElement}>
       <SampleLayer {...{ isLock, selectSampleShape, funcPack: this.sampleLayerFuncPack }} />
       <IndicatorLayer {...{ zoom, centerOffset, viewport, previewWidget, isValidPlace, isActive: Boolean(!isLock && (previewWidget || selectSampleShape)), setRef: this.setIndicatorLayerElement }} />
+      <WidgetGlobalStyle />
     </WidgetCreatorDiv>
   }
 }

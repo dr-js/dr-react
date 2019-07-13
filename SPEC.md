@@ -22,7 +22,7 @@
 + 📄 [source/component/Widget/Widget/DOM.js](source/component/Widget/Widget/DOM.js)
   - `STYLE_DISPLAY_NONE`, `getBoundingRectTransformStyle`, `getElbowAnchorEndTransformStyle`, `getElbowAnchorTransformStyle`, `getRectTransformStyle`
 + 📄 [source/component/Widget/Widget/index.js](source/component/Widget/Widget/index.js)
-  - `WidgetElbow`, `WidgetLine`, `WidgetRect`, `renderWidget`
+  - `WidgetElbow`, `WidgetGlobalStyle`, `WidgetLine`, `WidgetRect`, `renderWidget`
 + 📄 [source/component/Widget/WidgetCreator/IndicatorLayer.js](source/component/Widget/WidgetCreator/IndicatorLayer.js)
   - `IndicatorLayer`
 + 📄 [source/component/Widget/WidgetCreator/Sample.js](source/component/Widget/WidgetCreator/Sample.js)

@@ -101,13 +101,16 @@ class ScrollLayer extends PureComponent {
 
     this.editorEventMap = {
       onWheel: (event) => {
-        const { deltaX, deltaY, shiftKey, ctrlKey, metaKey, clientX, clientY } = event
+        const { deltaMode, deltaX, deltaY, clientX, clientY, shiftKey, ctrlKey, metaKey } = event
         if (deltaY && (ctrlKey || metaKey)) { // zoom
           const isReduceZoomValue = deltaY < 0 ? ZOOM_IN : ZOOM_OUT
           this.updateZoomAtDelayed(clientX, clientY, isReduceZoomValue)
         } else { // scroll
-          if (shiftKey) this.updateCenterOffsetDelayed(deltaY, deltaX)
-          else this.updateCenterOffsetDelayed(deltaX, deltaY)
+          const deltaScale = deltaMode === 2 ? 800 // page
+            : deltaMode === 1 ? 16 // line (FireFox)
+              : 1 // pixel
+          if (shiftKey) this.updateCenterOffsetDelayed(deltaY * deltaScale, deltaX * deltaScale)
+          else this.updateCenterOffsetDelayed(deltaX * deltaScale, deltaY * deltaScale)
         }
         event.preventDefault()
         event.stopPropagation()

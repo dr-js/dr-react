@@ -1,12 +1,15 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { createGlobalStyle } from 'styled-components'
 import { arrayFindSet } from 'dr-js/module/common/immutable/Array'
 
 import { transformCache } from 'source/function'
+
+import { applyWidgetEditorStateProcessor } from 'source/state/widgetEditor/processor'
+
+import { WidgetGlobalStyle } from 'source/component/Widget/Widget'
 import { RulerLayer } from 'source/component/RulerLayer'
 import { ScrollLayer, ScrollLayerBounded, ScrollLayerStatic } from 'source/component/ScrollLayer'
-import { applyWidgetEditorStateProcessor } from 'source/state/widgetEditor/processor'
 
 import { WidgetLayer, WidgetLayerSnapshot } from './WidgetLayer'
 import { IndicatorLayer } from './IndicatorLayer'
@@ -133,15 +136,18 @@ class WidgetEditor extends PureComponent {
 
     __DEV__ && console.log(`[RENDER] WidgetEditor`)
 
-    return <RulerLayer {...{ zoom, valueX: centerOffset.x, valueY: centerOffset.y, onClick: this.doResetCenterOffset, className: CSS_EVENT_DEFAULT_FIX }}>
-      <ScrollLayer {...{ zoom, viewport, centerOffset, allowScroll, ...this.scrollLayerProps }}>
-        <WidgetLayer {...{ zoom, isLock, widgetList, previewWidgetDataMap, funcPack: this.widgetLayerFuncPack }} />
-        {hasIndicator && <IndicatorLayer {...{
-          zoom, rangeBoundingRect, handleType, snapDataList, previewBoundingRect, hoverWidget, singleSelectPreviewWidget, funcPack: this.indicatorLayerFuncPack
-        }} />}
-      </ScrollLayer>
+    return <Fragment>
+      <RulerLayer {...{ zoom, valueX: centerOffset.x, valueY: centerOffset.y, onClick: this.doResetCenterOffset, className: CSS_EVENT_DEFAULT_FIX }}>
+        <ScrollLayer {...{ zoom, viewport, centerOffset, allowScroll, ...this.scrollLayerProps }}>
+          <WidgetLayer {...{ zoom, isLock, widgetList, previewWidgetDataMap, funcPack: this.widgetLayerFuncPack }} />
+          {hasIndicator && <IndicatorLayer {...{
+            zoom, rangeBoundingRect, handleType, snapDataList, previewBoundingRect, hoverWidget, singleSelectPreviewWidget, funcPack: this.indicatorLayerFuncPack
+          }} />}
+        </ScrollLayer>
+      </RulerLayer>
+      <WidgetGlobalStyle />
       <GlobalStyle />
-    </RulerLayer>
+    </Fragment>
   }
 }
 
@@ -153,27 +159,33 @@ class WidgetEditorViewer extends WidgetEditor {
       selectData: { rangeBoundingRect }
     } = this.state
 
-    return <ScrollLayerBounded {...{
-      boundRect: getMergedEditBoundingWidgetCached(widgetList),
-      zoom,
-      viewport,
-      centerOffset,
-      allowScroll: !rangeBoundingRect && !lockWidgetId,
-      ...this.scrollLayerProps
-    }}>
-      <WidgetLayer {...{ zoom, isLock, widgetList, funcPack: this.widgetLayerFuncPack }} />
+    return <Fragment>
+      <ScrollLayerBounded {...{
+        boundRect: getMergedEditBoundingWidgetCached(widgetList),
+        zoom,
+        viewport,
+        centerOffset,
+        allowScroll: !rangeBoundingRect && !lockWidgetId,
+        ...this.scrollLayerProps
+      }}>
+        <WidgetLayer {...{ zoom, isLock, widgetList, funcPack: this.widgetLayerFuncPack }} />
+      </ScrollLayerBounded>
+      <WidgetGlobalStyle />
       <GlobalStyle />
-    </ScrollLayerBounded>
+    </Fragment>
   }
 }
 
-const WidgetEditorSnapshot = ({ widgetList, widgetEditor: { zoom } }) => <ScrollLayerStatic {...{
-  boundRect: getMergedEditBoundingWidgetCached(widgetList),
-  zoom
-}}>
-  <WidgetLayerSnapshot {...{ widgetList, zoom }} isLock />
+const WidgetEditorSnapshot = ({ widgetList, widgetEditor: { zoom } }) => <Fragment>
+  <ScrollLayerStatic {...{
+    boundRect: getMergedEditBoundingWidgetCached(widgetList),
+    zoom
+  }}>
+    <WidgetLayerSnapshot {...{ widgetList, zoom }} isLock />
+  </ScrollLayerStatic>
+  <WidgetGlobalStyle />
   <GlobalStyle />
-</ScrollLayerStatic>
+</Fragment>
 WidgetEditorSnapshot.propTypes = {
   widgetList: PropTypes.array,
   widgetEditor: PropTypes.object

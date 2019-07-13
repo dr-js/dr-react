@@ -1,44 +1,43 @@
 {
   "private": true,
   "name": "dr-react",
-  "version": "0.0.2-dev.10",
+  "version": "0.0.2-dev.11",
   "description": "A collection of strange functions, with React",
   "author": "dr-js",
   "license": "MIT",
   "repository": "github:dr-js/dr-react",
   "scripts": {
     "// script ======================": "",
-    "script-base": "babel-node ./script quiet",
-    "script-pack": "babel-node ./script quiet pack",
-    "script-publish": "babel-node ./script pack publish",
-    "script-publish-dev": "babel-node ./script pack publish-dev",
-    "script-generate-spec": "babel-node ./script/generateSpec",
+    "script-pack": "node -r @babel/register ./script quiet pack",
+    "script-publish": "node -r @babel/register ./script pack publish",
+    "script-publish-dev": "node -r @babel/register ./script pack publish-dev",
+    "script-generate-spec": "node -r @babel/register ./script/generateSpec",
     "// build =======================": "",
     "build-module": "cross-env BABEL_ENV=module babel ./source --out-dir ./output-gitignore/module --ignore source/index.example.js",
-    "build-example": "babel-node ./script/webpack production profile",
-    "build-example-dev": "babel-node ./script/webpack development watch",
+    "build-example": "node -r @babel/register ./script/webpack production profile",
+    "build-example-dev": "node -r @babel/register ./script/webpack development watch",
     "// =============================": "",
     "analyze-stat": "npx webpack-bundle-analyzer .temp-gitignore/profile-stat.json",
     "lint": "eslint ./source/ ./script/",
     "prepack": "echo \"Error: pack with script-*\" && exit 1"
   },
   "engines": {
-    "node": ">=10.15",
-    "npm": ">=6"
+    "node": ">=10.16",
+    "npm": ">=6.10"
   },
   "peerDependencies": {
-    "dr-js": "^0.22.2 || ^0.22.2-dev.0",
+    "dr-js": "^0.23.0 || ^0.23.0-dev.2",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
+    "react": "^16.9.0",
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
-    "dr-dev": "0.0.6-dev.8",
-    "dr-dev-web-react-styled-components": "0.0.6-dev.8",
-    "dr-js": "0.22.2-dev.0",
+    "dr-dev": "0.0.7-dev.1",
+    "dr-dev-web-react-styled-components": "0.0.7-dev.1",
+    "dr-js": "0.23.0-dev.2",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
   "sideEffects": false
 }

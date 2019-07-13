@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -44,22 +44,34 @@ const ContentDiv = styled(BaseDiv)`
   height: calc(100% - ${SIZE_RULER});
 `
 
-const RulerLayer = ({ zoom, valueX, valueY, onClick, className, children }) => {
-  const isActive = (valueX !== 0 || valueY !== 0)
-  return <div className={className || ''}>
-    <RulerIntersectionDiv as="button" className={isActive ? 'active' : ''} onClick={isActive ? onClick : null} disabled={!isActive} />
-    <RulerHorizontalDiv as={RulerHorizontal} zoom={zoom} valueX={valueX} />
-    <RulerVerticalDiv as={RulerVertical} zoom={zoom} valueY={valueY} />
-    <ContentDiv>
-      {children}
-    </ContentDiv>
-  </div>
+class RulerFragment extends PureComponent {
+  static propTypes = {
+    zoom: PropTypes.number,
+    valueX: PropTypes.number,
+    valueY: PropTypes.number,
+    onClick: PropTypes.func
+  }
+
+  render () {
+    const { zoom, valueX, valueY, onClick } = this.props
+    const isActive = (valueX !== 0 || valueY !== 0)
+
+    return <Fragment>
+      <RulerIntersectionDiv as="button" className={isActive ? 'active' : ''} onClick={isActive ? onClick : null} disabled={!isActive} />
+      <RulerHorizontalDiv as={RulerHorizontal} zoom={zoom} valueX={valueX} />
+      <RulerVerticalDiv as={RulerVertical} zoom={zoom} valueY={valueY} />
+    </Fragment>
+  }
 }
+
+const RulerLayer = ({ zoom, valueX, valueY, onClick, className, children }) => <div className={className || ''}>
+  <RulerFragment {...{ zoom, valueX, valueY, onClick }} />
+  <ContentDiv>
+    {children}
+  </ContentDiv>
+</div>
 RulerLayer.propTypes = {
-  zoom: PropTypes.number,
-  valueX: PropTypes.number,
-  valueY: PropTypes.number,
-  onClick: PropTypes.func,
+  ...RulerFragment.propTypes,
   className: PropTypes.string,
   children: PropTypes.node
 }
