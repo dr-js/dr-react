@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { createGlobalStyle } from 'styled-components'
-import { arrayFindSet } from 'dr-js/module/common/immutable/Array'
+import { arrayFindSet } from '@dr-js/core/module/common/immutable/Array'
 
 import { transformCache } from 'source/function'
 

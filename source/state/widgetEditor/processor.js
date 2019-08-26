@@ -1,4 +1,4 @@
-import { createMultiKeySwitch } from 'dr-js/module/common/module/KeySelector'
+import { createMultiKeySwitch } from '@dr-js/core/module/common/module/KeySelector'
 
 import { HANDLE_TYPE } from 'source/state/widget/type/handle'
 import { POINTER_EVENT_TYPE, SELECT_MODE_TYPE, applyPointerEventListener } from 'source/state/event'

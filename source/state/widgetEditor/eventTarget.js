@@ -1,5 +1,5 @@
-import { objectFindKey } from 'dr-js/module/common/immutable/Object'
-import { getPathElementList, getElementAtViewport } from 'dr-js/module/browser/DOM'
+import { objectFindKey } from '@dr-js/core/module/common/immutable/Object'
+import { getPathElementList, getElementAtViewport } from '@dr-js/core/module/browser/DOM'
 
 const EVENT_TARGET_TYPE = {
   NULL: 'NULL',

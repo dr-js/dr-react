@@ -1,4 +1,4 @@
-import { getRandomId } from 'dr-js/module/common/math/random'
+import { getRandomId } from '@dr-js/core/module/common/math/random'
 
 const duplicateWidget = (widget) => ({ ...widget, id: getRandomId('W') })
 

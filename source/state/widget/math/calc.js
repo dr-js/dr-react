@@ -1,7 +1,7 @@
-import { objectMerge, objectSet } from 'dr-js/module/common/immutable/Object'
-import { roundFloat } from 'dr-js/module/common/math/base'
-import { add, round } from 'dr-js/module/common/geometry/D2/Vector'
-import { fromPoint as widgetFromPoint, fromLine as widgetFromLine } from 'dr-js/module/common/geometry/D2/Widget'
+import { objectMerge, objectSet } from '@dr-js/core/module/common/immutable/Object'
+import { roundFloat } from '@dr-js/core/module/common/math/base'
+import { add, round } from '@dr-js/core/module/common/geometry/D2/Vector'
+import { fromPoint as widgetFromPoint, fromLine as widgetFromLine } from '@dr-js/core/module/common/geometry/D2/Widget'
 
 import { WIDGET_SHAPE_TYPE } from '../type/shape'
 import { HANDLE_TYPE, ELBOW_ANCHOR_INFO_MAP, isHandleApplicable } from '../type/handle'

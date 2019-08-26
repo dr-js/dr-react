@@ -1,4 +1,4 @@
-import { getRandomInt, getRandomId } from 'dr-js/module/common/math/random'
+import { getRandomInt, getRandomId } from '@dr-js/core/module/common/math/random'
 
 import { WIDGET_SHAPE_TYPE } from 'source/state/widget/type/shape'
 

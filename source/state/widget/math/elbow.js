@@ -1,6 +1,6 @@
-import { arrayDelete, arrayPush, arrayUnshift } from 'dr-js/module/common/immutable/Array'
-import { add, sub, min, round } from 'dr-js/module/common/geometry/D2/Vector'
-import { localPoint, localBoundingRect } from 'dr-js/module/common/geometry/D2/Widget'
+import { arrayDelete, arrayPush, arrayUnshift } from '@dr-js/core/module/common/immutable/Array'
+import { add, sub, min, round } from '@dr-js/core/module/common/geometry/D2/Vector'
+import { localPoint, localBoundingRect } from '@dr-js/core/module/common/geometry/D2/Widget'
 
 import {
   ELBOW_ANCHOR_INFO_MAP,

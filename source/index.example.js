@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { objectMerge, objectSet } from 'dr-js/module/common/immutable/Object'
-import { arrayPush } from 'dr-js/module/common/immutable/Array'
-import { createStateStore } from 'dr-js/module/common/immutable/StateStore'
+import { objectMerge, objectSet } from '@dr-js/core/module/common/immutable/Object'
+import { arrayPush } from '@dr-js/core/module/common/immutable/Array'
+import { createStateStore } from '@dr-js/core/module/common/immutable/StateStore'
 
 import { WidgetCreator } from 'source/component/Widget/WidgetCreator'
 import { WidgetEditor } from 'source/component/Widget/WidgetEditor'

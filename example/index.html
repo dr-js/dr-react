@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0">
-  <title>dr-react/example</title>
+  <title>@dr-js/react example</title>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; outline-color: #f00; font-family: monospace; }
     ::-webkit-scrollbar-thumb { background: #0004; }
@@ -49,8 +49,8 @@
   })
 
   initialState.widgetList = []
-  for (let index = 0, indexMax = 2; index < indexMax; index++) getWidgetSample(initialState.widgetList, index)
-  // for (let index = 0, indexMax = 128; index < indexMax; index++) getWidgetSample(initialState.widgetList, index)
+  // for (let index = 0, indexMax = 2; index < indexMax; index++) getWidgetSample(initialState.widgetList, index)
+  for (let index = 0, indexMax = 128; index < indexMax; index++) getWidgetSample(initialState.widgetList, index)
 
   window.D = initReactRender({
     rootElement: document.querySelector('#root'),

@@ -1,8 +1,8 @@
 import { resolve } from 'path'
 
-import { runMain } from 'dr-dev/module/main'
-import { compileWithWebpack, commonFlag } from 'dr-dev/module/webpack'
-import { getWebpackBabelConfig } from 'dr-dev/module/babel'
+import { runMain } from '@dr-js/dev/module/main'
+import { compileWithWebpack, commonFlag } from '@dr-js/dev/module/webpack'
+import { getWebpackBabelConfig } from '@dr-js/dev/module/babel'
 
 const PATH_ROOT = resolve(__dirname, '..')
 const fromRoot = (...args) => resolve(PATH_ROOT, ...args)

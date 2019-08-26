@@ -1,10 +1,10 @@
 import { resolve } from 'path'
 import { writeFileSync } from 'fs'
 
-import { collectSourceRouteMap } from 'dr-dev/module/node/export/parse'
-import { generateExportInfo } from 'dr-dev/module/node/export/generate'
-import { renderMarkdownAutoAppendHeaderLink, renderMarkdownExportPath } from 'dr-dev/module/node/export/renderMarkdown'
-import { runMain } from 'dr-dev/module/main'
+import { collectSourceRouteMap } from '@dr-js/dev/module/node/export/parse'
+import { generateExportInfo } from '@dr-js/dev/module/node/export/generate'
+import { renderMarkdownAutoAppendHeaderLink, renderMarkdownExportPath } from '@dr-js/dev/module/node/export/renderMarkdown'
+import { runMain } from '@dr-js/dev/module/main'
 
 const PATH_ROOT = resolve(__dirname, '..')
 const fromRoot = (...args) => resolve(PATH_ROOT, ...args)

@@ -1,4 +1,4 @@
-import { roundFloat } from 'dr-js/module/common/math/base'
+import { roundFloat } from '@dr-js/core/module/common/math/base'
 
 import { HOVER_TARGET_TYPE } from '../type/hover'
 

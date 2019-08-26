@@ -1,4 +1,4 @@
-import { ENHANCED_POINTER_EVENT_TYPE, applyEnhancedPointerEventListener } from 'dr-js/module/browser/input/PointerEvent'
+import { ENHANCED_POINTER_EVENT_TYPE, applyEnhancedPointerEventListener } from '@dr-js/core/module/browser/input/PointerEvent'
 
 const { TAP, HOLD, DRAG_MOVE, DRAG_END } = ENHANCED_POINTER_EVENT_TYPE
 const POINTER_EVENT_TYPE = { TAP, HOLD, DRAG_MOVE, DRAG_END }

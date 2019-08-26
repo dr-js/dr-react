@@ -1,13 +1,13 @@
 import { resolve } from 'path'
 import { execSync } from 'child_process'
 
-import { getScriptFileListFromPathList } from 'dr-dev/module/node/file'
-import { runMain, argvFlag } from 'dr-dev/module/main'
-import { initOutput, packOutput, publishOutput } from 'dr-dev/module/output'
-import { processFileList, fileProcessorBabel } from 'dr-dev/module/fileProcessor'
-import { getTerserOption, minifyFileListWithTerser } from 'dr-dev/module/minify'
+import { getScriptFileListFromPathList } from '@dr-js/dev/module/node/file'
+import { runMain, argvFlag } from '@dr-js/dev/module/main'
+import { initOutput, packOutput, publishOutput } from '@dr-js/dev/module/output'
+import { processFileList, fileProcessorBabel } from '@dr-js/dev/module/fileProcessor'
+import { getTerserOption, minifyFileListWithTerser } from '@dr-js/dev/module/minify'
 
-import { binary as formatBinary } from 'dr-js/module/common/format'
+import { binary as formatBinary } from '@dr-js/core/module/common/format'
 
 const PATH_ROOT = resolve(__dirname, '..')
 const PATH_OUTPUT = resolve(__dirname, '../output-gitignore')
@@ -42,5 +42,5 @@ runMain(async (logger) => {
   await processOutput({ logger })
 
   const pathPackagePack = await packOutput({ fromRoot, fromOutput, logger })
-  await publishOutput({ flagList: process.argv, packageJSON, pathPackagePack, logger })
+  await publishOutput({ flagList: process.argv, isPublicScoped: true, packageJSON, pathPackagePack, logger })
 })

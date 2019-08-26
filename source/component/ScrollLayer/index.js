@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { objectMerge } from 'dr-js/module/common/immutable/Object'
+import { objectMerge } from '@dr-js/core/module/common/immutable/Object'
 
 import { transformCache, delayArgvQueue } from 'source/function'
 import { color } from 'source/style/color'
