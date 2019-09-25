@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@dr-js/react",
-  "version": "0.0.0-dev.0",
+  "version": "0.0.0-dev.1",
   "description": "A collection of strange functions, with React",
   "author": "dr-js",
   "license": "MIT",
@@ -22,22 +22,22 @@
     "prepack": "echo \"Error: pack with script-*\" && exit 1"
   },
   "engines": {
-    "node": ">=10.16",
-    "npm": ">=6.10"
+    "node": ">=12.13",
+    "npm": ">=6.12"
   },
   "peerDependencies": {
-    "@dr-js/core": "^0.0.0 || ^0.0.0-dev.0",
+    "@dr-js/core": "^0.0.0 || ^0.0.0-dev.4",
     "prop-types": "^15.7.2",
-    "react": "^16.9.0",
-    "styled-components": "^4.4.0"
+    "react": "^16.11.0",
+    "styled-components": "^4.4.1"
   },
   "devDependencies": {
-    "@dr-js/core": "0.0.0-dev.0",
-    "@dr-js/dev": "0.0.0-dev.0",
-    "@dr-js/dev-web-react-styled-components": "0.0.0-dev.0",
+    "@dr-js/core": "0.0.0-dev.4",
+    "@dr-js/dev": "0.0.0-dev.2",
+    "@dr-js/dev-web-react-styled-components": "0.0.0-dev.2",
     "prop-types": "^15.7.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
   },
   "sideEffects": false
 }
