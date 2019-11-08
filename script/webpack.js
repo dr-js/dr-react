@@ -1,8 +1,8 @@
 import { resolve } from 'path'
 
-import { runMain } from '@dr-js/dev/module/main'
 import { compileWithWebpack, commonFlag } from '@dr-js/dev/module/webpack'
 import { getWebpackBabelConfig } from '@dr-js/dev/module/babel'
+import { runMain } from '@dr-js/dev/module/main'
 
 const PATH_ROOT = resolve(__dirname, '..')
 const fromRoot = (...args) => resolve(PATH_ROOT, ...args)
@@ -14,7 +14,7 @@ runMain(async (logger) => {
     babelOption: getWebpackBabelConfig({
       isProduction,
       extraPresetList: [ [ '@babel/react' ] ],
-      extraPluginList: [ [ 'babel-plugin-styled-components' ] ]
+      extraPluginList: [ [ 'styled-components' ] ]
     }),
     output: { path: fromRoot('example/source-gitignore/'), filename: '[name].js', library: 'DrReact', libraryTarget: 'umd' },
     entry: { 'index': 'source/index.example' } // TODO: currently output example, not library

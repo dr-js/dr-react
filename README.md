@@ -6,8 +6,8 @@
 
 A collection of strange functions, with React
 
-[i:npm]: https://img.shields.io/npm/v/@dr-js/react.svg
-[i:npm-dev]: https://img.shields.io/npm/v/@dr-js/react/dev.svg
+[i:npm]: https://img.shields.io/npm/v/@dr-js/react
+[i:npm-dev]: https://img.shields.io/npm/v/@dr-js/react/dev
 [l:npm]: https://npm.im/@dr-js/react
 [i:size]: https://packagephobia.now.sh/badge?p=@dr-js/react
 [l:size]: https://packagephobia.now.sh/result?p=@dr-js/react
