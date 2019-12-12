@@ -93,7 +93,7 @@ class WidgetCreator extends PureComponent {
       previewData: { previewWidget, isValidPlace }
     } = this.state
 
-    __DEV__ && console.log(`[RENDER] WidgetCreator`)
+    __DEV__ && console.log('[RENDER] WidgetCreator')
 
     return <WidgetCreatorDiv ref={this.setCreatorLayerElement}>
       <SampleLayer {...{ isLock, selectSampleShape, funcPack: this.sampleLayerFuncPack }} />

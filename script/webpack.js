@@ -17,7 +17,7 @@ runMain(async (logger) => {
       extraPluginList: [ [ 'styled-components' ] ]
     }),
     output: { path: fromRoot('example/source-gitignore/'), filename: '[name].js', library: 'DrReact', libraryTarget: 'umd' },
-    entry: { 'index': 'source/index.example' } // TODO: currently output example, not library
+    entry: { 'index': 'source/.example.test/index.webpack-entry' } // TODO: currently output example, not library
   })
 
   logger.padLog(`compile with webpack mode: ${mode}, isWatch: ${Boolean(isWatch)}`)

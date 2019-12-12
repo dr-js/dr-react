@@ -19,4 +19,4 @@ A collection of strange functions, with React
 - 📁 [example/](example/)
   - some example (unsorted tests)
 - 📄 [SPEC.md](SPEC.md)
-  - list of all directly accessible codes, sort of an API lockfile
+  - list of all directly accessible codes, sort of API lockfile

@@ -45,7 +45,7 @@ const calcWidgetBindShift = (widget, previewWidgetDataMap) => {
         }, widget)
       })
       return widget
-    case WIDGET_SHAPE_TYPE.ELBOW_LINK:
+    case WIDGET_SHAPE_TYPE.ELBOW_LINK: {
       let headBindInfo = null
       let tailBindInfo = null
       Object.keys(widget.bindData).forEach((id) => {
@@ -56,6 +56,7 @@ const calcWidgetBindShift = (widget, previewWidgetDataMap) => {
         })
       })
       return (headBindInfo || tailBindInfo) ? calcWidgetElbowResizeBind(widget, headBindInfo, tailBindInfo) : widget
+    }
   }
 
   return widget // TODO: no rect bind yet

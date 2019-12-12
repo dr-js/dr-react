@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { createGlobalStyle } from 'styled-components'
 import { arrayFindSet } from '@dr-js/core/module/common/immutable/Array'
@@ -134,9 +134,9 @@ class WidgetEditor extends PureComponent {
     const hoverWidget = hasIndicator && this.getHoverWidgetCached(widgetList, hoverWidgetId)
     const singleSelectPreviewWidget = hasIndicator && this.getSingleSelectPreviewWidgetCached(widgetList, selectIdList, previewWidgetDataMap)
 
-    __DEV__ && console.log(`[RENDER] WidgetEditor`)
+    __DEV__ && console.log('[RENDER] WidgetEditor')
 
-    return <Fragment>
+    return <>
       <RulerLayer {...{ zoom, valueX: centerOffset.x, valueY: centerOffset.y, onClick: this.doResetCenterOffset, className: CSS_EVENT_DEFAULT_FIX }}>
         <ScrollLayer {...{ zoom, viewport, centerOffset, allowScroll, ...this.scrollLayerProps }}>
           <WidgetLayer {...{ zoom, isLock, widgetList, previewWidgetDataMap, funcPack: this.widgetLayerFuncPack }} />
@@ -147,7 +147,7 @@ class WidgetEditor extends PureComponent {
       </RulerLayer>
       <WidgetGlobalStyle />
       <GlobalStyle />
-    </Fragment>
+    </>
   }
 }
 
@@ -159,7 +159,7 @@ class WidgetEditorViewer extends WidgetEditor {
       selectData: { rangeBoundingRect }
     } = this.state
 
-    return <Fragment>
+    return <>
       <ScrollLayerBounded {...{
         boundRect: getMergedEditBoundingWidgetCached(widgetList),
         zoom,
@@ -172,11 +172,11 @@ class WidgetEditorViewer extends WidgetEditor {
       </ScrollLayerBounded>
       <WidgetGlobalStyle />
       <GlobalStyle />
-    </Fragment>
+    </>
   }
 }
 
-const WidgetEditorSnapshot = ({ widgetList, widgetEditor: { zoom } }) => <Fragment>
+const WidgetEditorSnapshot = ({ widgetList, widgetEditor: { zoom } }) => <>
   <ScrollLayerStatic {...{
     boundRect: getMergedEditBoundingWidgetCached(widgetList),
     zoom
@@ -185,7 +185,7 @@ const WidgetEditorSnapshot = ({ widgetList, widgetEditor: { zoom } }) => <Fragme
   </ScrollLayerStatic>
   <WidgetGlobalStyle />
   <GlobalStyle />
-</Fragment>
+</>
 WidgetEditorSnapshot.propTypes = {
   widgetList: PropTypes.array,
   widgetEditor: PropTypes.object

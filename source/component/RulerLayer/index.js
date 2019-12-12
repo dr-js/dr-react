@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -56,11 +56,11 @@ class RulerFragment extends PureComponent {
     const { zoom, valueX, valueY, onClick } = this.props
     const isActive = (valueX !== 0 || valueY !== 0)
 
-    return <Fragment>
+    return <>
       <RulerIntersectionDiv as="button" className={isActive ? 'active' : ''} onClick={isActive ? onClick : null} disabled={!isActive} />
       <RulerHorizontalDiv as={RulerHorizontal} zoom={zoom} valueX={valueX} />
       <RulerVerticalDiv as={RulerVertical} zoom={zoom} valueY={valueY} />
-    </Fragment>
+    </>
   }
 }
 

@@ -215,11 +215,12 @@ class HandleLayer extends PureComponent {
   renderWidgetHandle (singleSelectPreviewWidget, zoom) {
     switch (singleSelectPreviewWidget.shape) {
       case WIDGET_SHAPE_TYPE.ELBOW:
-      case WIDGET_SHAPE_TYPE.ELBOW_LINK:
+      case WIDGET_SHAPE_TYPE.ELBOW_LINK: {
         const { isDeleteMode, isAddMode } = this.state
         if (isDeleteMode) return this.renderElbowHandleListDelete(singleSelectPreviewWidget, zoom)
         else if (isAddMode) return this.renderElbowHandleListAdd(singleSelectPreviewWidget, zoom)
         else return this.renderElbowHandleList(singleSelectPreviewWidget, zoom)
+      }
       default:
         return this.handleComponentListMap[ singleSelectPreviewWidget.shape ]
     }
