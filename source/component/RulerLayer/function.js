@@ -1,3 +1,5 @@
+const { document } = window
+
 // TODO: make configurable
 const COLOR_BORDER = '#d9d9d9'
 const COLOR_TEXT_60 = '#7d8695'

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { createGlobalStyle } from 'styled-components'
 import { arrayFindSet } from '@dr-js/core/module/common/immutable/Array'

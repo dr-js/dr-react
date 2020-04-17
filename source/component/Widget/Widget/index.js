@@ -1,4 +1,4 @@
-import React, { PureComponent, createElement } from 'react'
+import { PureComponent, createElement } from 'react'
 import PropTypes from 'prop-types'
 import { createGlobalStyle } from 'styled-components'
 

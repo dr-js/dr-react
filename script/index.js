@@ -34,7 +34,7 @@ runMain(async (logger) => {
   if (!argvFlag('pack')) return
   await buildOutput({ logger })
   await processOutput({ logger })
-  const isTest = true // argvFlag('test', 'publish', 'publish-dev')
+  const isTest = argvFlag('test', 'publish', 'publish-dev')
   isTest && logger.padLog('lint source')
   isTest && execShell('npm run lint')
   isTest && await processOutput({ logger }) // once more

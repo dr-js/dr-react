@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -18,6 +18,8 @@ import {
   getElbowAnchorTransformStyle,
   getElbowAnchorEndTransformStyle
 } from 'source/component/Widget/Widget/DOM'
+
+const { document } = window
 
 const HANDLE_OFFSET = '24px'
 const HANDLE_MASK_SIZE = '16px'
